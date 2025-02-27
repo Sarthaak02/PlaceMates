@@ -1,0 +1,32 @@
+New prompt
+Register page
+form- name, first name, last name, usertype(admin/student) , email, password
+
+Login page
+email, password , forgot password
+
+home page - tell me what should it contain
+profile page-
+features- 
+change theme white/dark or system
+update the user information like email and password
+logout
+
+about page - tell me what should it contain
+
+Alumni page- list all the placed alumni
+student can read only
+admin has permissions for the crud 
+here tell me how to implement the method to update the aluni information give different ways other than the direct using object if i admin want to update limited information from all the information of the laummni
+
+company page - list all the comapany
+student can read only
+admin has permissions for the crud 
+here tell me how to implement the method to update the comapany information give different ways other than the direct using object if i admin want to update limited information from all the infoarmtion of the comapany
+
+
+
+this is the actual  project and its features
+1 tell me more features to be added to this
+2 for above all features and pages tell what should on fronend and what shhould be on backend impementaion, how should i impement each feature dont write code just tell me way of implementain
+3 dont write code for any above features

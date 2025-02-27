@@ -1,0 +1,22 @@
+feedbacks
+blogs
+visitors to website
+oauth-uses sessions  to store the password
+hashing for password
+
+
+
+3 type of user
+admin- verify the blog, can see the number of vistors with different categories
+tpo
+student
+
+
+
+schema of the tbale
+EXEC sp_help 'dbo.Alumni';
+
+
+get data in alumni and company 
+optimal or not to use list
+how to implement infinite scroll
