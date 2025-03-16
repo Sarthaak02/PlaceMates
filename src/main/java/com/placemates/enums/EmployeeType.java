@@ -1,4 +1,4 @@
-package com.placemates.dao.company;
+package com.placemates.enums;
 
 public enum EmployeeType {
     FULL_TIME("Full Time"),

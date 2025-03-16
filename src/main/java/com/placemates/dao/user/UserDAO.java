@@ -1,9 +1,10 @@
 package com.placemates.dao.user;
 
-import com.placemates.dao.common.Batch;
-import com.placemates.dao.common.Branch;
-import com.placemates.dao.common.Image;
-import com.placemates.dao.common.Location;
+import com.placemates.dao.common.BatchDAO;
+import com.placemates.dao.common.BranchDAO;
+import com.placemates.dao.common.ImageDAO;
+import com.placemates.dao.common.LocationDAO;
+import com.placemates.enums.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Table(name="USER")
 @Data
 @AllArgsConstructor
-public class User {
+public class UserDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,21 +52,21 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "BR_ID")
-    private Branch branch;
+    private BranchDAO branchDAO;
 
     @ManyToOne
     @JoinColumn(name = "BAT_ID")
-    private Batch batch;
+    private BatchDAO batchDAO;
 
     @ManyToOne
     @JoinColumn(name = "LOC_ID")
-    private Location location;
+    private LocationDAO locationDAO;
 
     @ManyToOne
     @JoinColumn(name = "ROLE_ID")
-    private Role role;
+    private RoleDAO roleDAO;
 
     @ManyToOne
     @JoinColumn(name = "IMG_ID")
-    private Image image;
+    private ImageDAO imageDAO;
 }

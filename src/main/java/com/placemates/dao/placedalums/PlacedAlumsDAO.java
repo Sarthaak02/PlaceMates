@@ -1,10 +1,10 @@
 package com.placemates.dao.placedalums;
 
-import com.placemates.dao.common.Batch;
-import com.placemates.dao.common.Branch;
-import com.placemates.dao.company.Company;
-import com.placemates.dao.common.Image;
-import com.placemates.dao.user.Gender;
+import com.placemates.dao.common.BatchDAO;
+import com.placemates.dao.common.BranchDAO;
+import com.placemates.dao.company.CompanyDAO;
+import com.placemates.dao.common.ImageDAO;
+import com.placemates.enums.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Table(name = "PLACED_ALUMS")
 @Data
 @AllArgsConstructor
-public class PlacedAlums {
+public class PlacedAlumsDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,17 +51,17 @@ public class PlacedAlums {
 
     @ManyToOne
     @JoinColumn(name = "BR_ID")
-    private Branch branch;
+    private BranchDAO branchDAO;
 
     @ManyToOne
     @JoinColumn(name = "BAT_ID")
-    private Batch batch;
+    private BatchDAO batchDAO;
 
     @ManyToOne
     @JoinColumn(name = "CMP_ID")
-    private Company company;
+    private CompanyDAO companyDAO;
 
     @ManyToOne
     @JoinColumn(name = "IMG_ID")
-    private Image image;
+    private ImageDAO imageDAO;
 }

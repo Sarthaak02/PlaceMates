@@ -1,6 +1,6 @@
 package com.placemates.dao.blog;
 
-import com.placemates.dao.user.User;
+import com.placemates.dao.user.UserDAO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
 @Table(name = "BLOG_COMMENT")
 @Data
 @AllArgsConstructor
-public class BlogComment {
+public class BlogCommentDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,9 @@ public class BlogComment {
 
     @ManyToOne
     @JoinColumn(name = "BLOG_ID")
-    private Blog blog;
+    private BlogDAO blogDAO;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User commentBy;
+    private UserDAO commentByDAO;
 }

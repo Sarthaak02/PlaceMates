@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "IMAGE")
 @Data
 @AllArgsConstructor
-public class Image {
+public class ImageDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

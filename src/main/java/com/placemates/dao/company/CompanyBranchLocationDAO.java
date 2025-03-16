@@ -1,7 +1,7 @@
 package com.placemates.dao.company;
 
-import com.placemates.dao.common.Branch;
-import com.placemates.dao.common.Location;
+import com.placemates.dao.common.BranchDAO;
+import com.placemates.dao.common.LocationDAO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(name = "CMP_BR_LOC")
 @Data
 @AllArgsConstructor
-public class CompanyBranchLocation {
+public class CompanyBranchLocationDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +19,13 @@ public class CompanyBranchLocation {
 
     @ManyToOne
     @JoinColumn(name = "CMP_ID")
-    private Company company;
+    private CompanyDAO companyDAO;
 
     @ManyToOne
     @JoinColumn(name = "BR_ID")
-    private Branch branch;
+    private BranchDAO branchDAO;
 
     @ManyToOne
     @JoinColumn(name = "LOC_ID")
-    private Location location;
+    private LocationDAO locationDAO;
 }

@@ -1,6 +1,7 @@
 package com.placemates.dao.company;
 
-import com.placemates.dao.common.Image;
+import com.placemates.dao.common.ImageDAO;
+import com.placemates.enums.EmployeeType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 @Table(name = "COMPANY")
 @Data
 @AllArgsConstructor
-public class Company {
+public class CompanyDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +42,5 @@ public class Company {
 
     @ManyToOne
     @JoinColumn(name = "IMG_ID")
-    private Image image;
+    private ImageDAO imageDAO;
 }

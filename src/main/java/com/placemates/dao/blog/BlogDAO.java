@@ -1,7 +1,7 @@
 package com.placemates.dao.blog;
 
-import com.placemates.dao.common.Image;
-import com.placemates.dao.user.User;
+import com.placemates.dao.common.ImageDAO;
+import com.placemates.dao.user.UserDAO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "BLOG")
 @Data
 @AllArgsConstructor
-public class Blog {
+public class BlogDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +36,9 @@ public class Blog {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User createdBy;
+    private UserDAO createdByDAO;
 
     @OneToOne
     @JoinColumn(name = "IMG_ID")
-    private Image image;
+    private ImageDAO imageDAO;
 }

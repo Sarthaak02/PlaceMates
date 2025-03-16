@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "ROLE")
 @Data
 @AllArgsConstructor
-public class Role {
+public class RoleDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

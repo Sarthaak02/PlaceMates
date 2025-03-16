@@ -5,16 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
-@Table(name = "LOCATION")
+@Table(name = "BATCH")
 @Data
 @AllArgsConstructor
-public class Location {
+public class BatchDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LOC_ID")
-    private Integer locationId;
+    @Column(name = "BAT_ID")
+    private Integer batchId;
 
-    @Column(name = "CITY")
-    private String city;
+    @Column(name = "BATCH_YEAR")
+    private Integer batchYear;
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "FEEDBACK")
 @Data
 @AllArgsConstructor
-public class Feedback {
+public class FeedbackDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +16,12 @@ public class Feedback {
     private Integer feedBackId;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = true)
-    private User user;
+    @JoinColumn(name = "USER_ID")
+    private UserDAO userDAO;
 
-    @Column(name = "RATE_COUNT")
-    private Integer rateCount;
+    @Column(name = "RATING")
+    private Integer rating;
 
-    @Column(name = "CONTENT")
-    private String content;
+    @Column(name = "MESSAGE")
+    private String message;
 }

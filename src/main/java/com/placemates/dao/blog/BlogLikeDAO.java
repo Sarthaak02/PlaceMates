@@ -1,6 +1,6 @@
 package com.placemates.dao.blog;
 
-import com.placemates.dao.user.User;
+import com.placemates.dao.user.UserDAO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "BLOG_LIKE")
 @Data
 @AllArgsConstructor
-public class BlogLike {
+public class BlogLikeDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,9 @@ public class BlogLike {
 
     @ManyToOne
     @JoinColumn(name = "BLOG_ID")
-    private Blog blog;
+    private BlogDAO blogDAO;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User likeBy;
+    private UserDAO likeByDAO;
 }

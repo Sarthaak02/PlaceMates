@@ -1,4 +1,4 @@
-package com.placemates.dao.user;
+package com.placemates.enums;
 
 public enum Gender {
     MALE("Male"),

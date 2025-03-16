@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "BRANCH")
 @Data
 @AllArgsConstructor
-public class Branch {
+public class BranchDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
