@@ -11,8 +11,10 @@
 	<groupId>com.project</groupId>
 	<artifactId>placemates</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>placemates</name>
-	<description>Demo project for Spring Boot</description>
+	<name>PlaceMates</name>
+	<description>
+		PlaceMates connects college alumni with current students for mentorship, networking, and career growth.
+	</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -68,6 +70,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.5.5.Final</version>
+		</dependency>
+
 		<!--  4. Testing Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,6 +88,21 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>1.5.5.Final</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
