@@ -1,13 +1,9 @@
 package com.placemates.dao.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 @Entity
 @Table(name = "ROLE")
-@Data
-@AllArgsConstructor
 public class RoleDAO {
 
     @Id
@@ -17,4 +13,28 @@ public class RoleDAO {
 
     @Column(name = "NAME")
     private String name;
+
+    public RoleDAO() {
+    }
+
+    public RoleDAO(Integer roleId, String name) {
+        this.roleId = roleId;
+        this.name = name;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

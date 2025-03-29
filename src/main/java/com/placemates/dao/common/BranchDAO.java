@@ -1,13 +1,9 @@
 package com.placemates.dao.common;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 @Entity
 @Table(name = "BRANCH")
-@Data
-@AllArgsConstructor
 public class BranchDAO {
 
     @Id
@@ -17,4 +13,28 @@ public class BranchDAO {
 
     @Column(name = "NAME")
     private String name;
+
+    public BranchDAO() {
+    }
+
+    public BranchDAO(Integer branchId, String name) {
+        this.branchId = branchId;
+        this.name = name;
+    }
+
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

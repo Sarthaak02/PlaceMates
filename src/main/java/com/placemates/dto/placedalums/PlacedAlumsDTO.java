@@ -1,22 +1,14 @@
 package com.placemates.dto.placedalums;
 
-import com.placemates.dto.common.BatchDTO;
 import com.placemates.dto.common.BranchDTO;
 import com.placemates.dto.common.ImageDTO;
 import com.placemates.dto.company.CompanyDTO;
 import com.placemates.enums.Gender;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
 public class PlacedAlumsDTO {
 
     private Integer placedAlumsId;
@@ -31,13 +23,11 @@ public class PlacedAlumsDTO {
 
     private BigDecimal ctc;
 
-    @Size(min=10,max=10)
-    @Pattern(regexp="(^$|\\d{10})\n")
-    private Integer mobileNumber;
+    private String mobileNumber;
 
     @Email
     @NotBlank
-    private String email;
+    private String mail;
 
     private String linkText;
 
@@ -46,7 +36,143 @@ public class PlacedAlumsDTO {
     
     private Gender gender;
     private BranchDTO branchDTO;
-    private BatchDTO batchDTO;
+
+    private Integer batch;
+
+    @NotNull
     private CompanyDTO companyDTO;
+
     private ImageDTO imageDTO;
+
+    public PlacedAlumsDTO() {
+    }
+
+    public PlacedAlumsDTO(Integer placedAlumsId, String firstName, String lastName, String designation, BigDecimal ctc, String mobileNumber, String mail, String linkText, String link, Gender gender, BranchDTO branchDTO, Integer batch, CompanyDTO companyDTO, ImageDTO imageDTO) {
+        this.placedAlumsId = placedAlumsId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.designation = designation;
+        this.ctc = ctc;
+        this.mobileNumber = mobileNumber;
+        this.mail = mail;
+        this.linkText = linkText;
+        this.link = link;
+        this.gender = gender;
+        this.branchDTO = branchDTO;
+        this.batch = batch;
+        this.companyDTO = companyDTO;
+        this.imageDTO = imageDTO;
+    }
+
+    public Integer getPlacedAlumsId() {
+        return placedAlumsId;
+    }
+
+    public void setPlacedAlumsId(Integer placedAlumsId) {
+        this.placedAlumsId = placedAlumsId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public BigDecimal getCtc() {
+        return ctc;
+    }
+
+    public void setCtc(BigDecimal ctc) {
+        this.ctc = ctc;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getLinkText() {
+        return linkText;
+    }
+
+    public void setLinkText(String linkText) {
+        this.linkText = linkText;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public BranchDTO getBranchDTO() {
+        return branchDTO;
+    }
+
+    public void setBranchDTO(BranchDTO branchDTO) {
+        this.branchDTO = branchDTO;
+    }
+
+    public Integer getBatch() {
+        return batch;
+    }
+
+    public void setBatch(Integer batch) {
+        this.batch = batch;
+    }
+
+    public CompanyDTO getCompanyDTO() {
+        return companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO) {
+        this.companyDTO = companyDTO;
+    }
+
+    public ImageDTO getImageDTO() {
+        return imageDTO;
+    }
+
+    public void setImageDTO(ImageDTO imageDTO) {
+        this.imageDTO = imageDTO;
+    }
 }
