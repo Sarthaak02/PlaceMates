@@ -1,7 +1,6 @@
 package com.placemates.dao.company;
 
 import com.placemates.dao.common.ImageDAO;
-import com.placemates.enums.EmployeeType;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -17,8 +16,8 @@ public class CompanyDAO {
     @Column(name = "NAME")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private EmployeeType employeeType;
+    @Column(name = "EMP_TYPE")
+    private String employeeType;
 
     @Column(name = "DESIGNATION")
     private String designation;
@@ -42,7 +41,7 @@ public class CompanyDAO {
     public CompanyDAO() {
     }
 
-    public CompanyDAO(Integer companyId, String name, EmployeeType employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDAO imageDAO) {
+    public CompanyDAO(Integer companyId, String name, String employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDAO imageDAO) {
         this.companyId = companyId;
         this.name = name;
         this.employeeType = employeeType;
@@ -70,11 +69,11 @@ public class CompanyDAO {
         this.name = name;
     }
 
-    public EmployeeType getEmployeeType() {
+    public String getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType(EmployeeType employeeType) {
+    public void setEmployeeType(String employeeType) {
         this.employeeType = employeeType;
     }
 

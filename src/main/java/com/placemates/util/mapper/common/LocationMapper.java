@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface LocationMapper {
-    LocationMapper locationMapper = Mappers.getMapper(LocationMapper.class);
+    LocationMapper INSTANCE = Mappers.getMapper(LocationMapper.class);
 
     LocationDAO fromDTOToDAO(LocationDTO locationDTO);
     LocationDTO fromDAOToDTO(LocationDAO locationDAO);

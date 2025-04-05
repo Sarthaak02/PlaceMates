@@ -5,7 +5,6 @@ import com.placemates.dto.user.UserDTO;
 import java.util.List;
 
 public interface UserService {
-
     UserDTO createUser(UserDTO userDTO);
     UserDTO getUserById(Integer id);
     List<UserDTO> getAllUsers();

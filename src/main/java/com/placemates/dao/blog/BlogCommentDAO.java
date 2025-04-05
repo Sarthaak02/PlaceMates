@@ -20,11 +20,11 @@ public class BlogCommentDAO {
     @Column(name = "COMMENTED_AT")
     private LocalDateTime commentedAt;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "BLOG_ID")
     private BlogDAO blogDAO;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private UserDAO commentByDAO;
 

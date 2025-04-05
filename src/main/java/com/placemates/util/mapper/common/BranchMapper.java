@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface BranchMapper {
-    BranchMapper branchMapper = Mappers.getMapper(BranchMapper.class);
+    BranchMapper INSTANCE = Mappers.getMapper(BranchMapper.class);
 
     BranchDAO fromDTOToDAO(BranchDTO branchDTO);
     BranchDTO fromDAOToDTO(BranchDAO branchDAO);

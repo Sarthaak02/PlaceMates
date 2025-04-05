@@ -30,7 +30,7 @@ public class BlogDAO {
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private UserDAO createdByDAO;
 

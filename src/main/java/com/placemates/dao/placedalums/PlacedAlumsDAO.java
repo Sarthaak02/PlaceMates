@@ -1,9 +1,10 @@
 package com.placemates.dao.placedalums;
 
 import com.placemates.dao.common.BranchDAO;
-import com.placemates.dao.company.CompanyDAO;
 import com.placemates.dao.common.ImageDAO;
+import com.placemates.dao.company.CompanyDAO;
 import com.placemates.enums.Gender;
+import com.placemates.util.convertor.GenderConvertor;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -41,7 +42,8 @@ public class PlacedAlumsDAO {
     @Column(name = "LINK")
     private String link;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = GenderConvertor.class)
+    @Column(name = "GENDER")
     private Gender gender;
 
     @ManyToOne
@@ -50,7 +52,7 @@ public class PlacedAlumsDAO {
 
     private Integer batch;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "CMP_ID")
     private CompanyDAO companyDAO;
 

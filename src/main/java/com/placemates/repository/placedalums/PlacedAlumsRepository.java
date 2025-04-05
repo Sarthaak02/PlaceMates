@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlacedAlumsRepository extends JpaRepository<PlacedAlumsDAO,Integer> {
+    PlacedAlumsDAO findByMail(String email);
+    PlacedAlumsDAO findByMobileNumber(String mobileNumber);
 }

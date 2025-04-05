@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface CompanyMapper {
-   CompanyMapper companyMapper = Mappers.getMapper(CompanyMapper.class);
+   CompanyMapper INSTANCE = Mappers.getMapper(CompanyMapper.class);
 
    CompanyDAO fromDTOToDAO(CompanyDTO companyDTO);
    CompanyDTO fromDAOToDTO(CompanyDAO companyDAO);

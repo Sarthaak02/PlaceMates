@@ -13,7 +13,7 @@ public class CompanyBranchLocationDAO {
     @Column(name = "CBL_ID")
     private Integer companyBranchLocationId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "CMP_ID")
     private CompanyDAO companyDAO;
 

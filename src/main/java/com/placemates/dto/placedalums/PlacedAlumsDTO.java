@@ -36,7 +36,6 @@ public class PlacedAlumsDTO {
     
     private Gender gender;
     private BranchDTO branchDTO;
-
     private Integer batch;
 
     @NotNull

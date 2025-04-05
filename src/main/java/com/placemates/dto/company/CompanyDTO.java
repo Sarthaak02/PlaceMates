@@ -1,10 +1,12 @@
 package com.placemates.dto.company;
 
+import com.placemates.dto.common.BranchDTO;
 import com.placemates.dto.common.ImageDTO;
-import com.placemates.enums.EmployeeType;
+import com.placemates.dto.common.LocationDTO;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CompanyDTO {
     private Integer companyId;
@@ -12,7 +14,7 @@ public class CompanyDTO {
     @NotBlank
     private String name;
 
-    private EmployeeType employeeType;
+    private String employeeType;
     private String designation;
     private BigDecimal ctc;
     private String eligibilityCriteria;
@@ -20,10 +22,13 @@ public class CompanyDTO {
     private String jobDescription;
     private ImageDTO imageDTO;
 
+    private List<BranchDTO> branchDTOList;
+    private List<LocationDTO> locationDTOList;
+
     public CompanyDTO() {
     }
 
-    public CompanyDTO(Integer companyId, String name, EmployeeType employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDTO imageDTO) {
+    public CompanyDTO(Integer companyId, String name, String employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDTO imageDTO, List<BranchDTO> branchDTOList, List<LocationDTO> locationDTOList) {
         this.companyId = companyId;
         this.name = name;
         this.employeeType = employeeType;
@@ -33,6 +38,8 @@ public class CompanyDTO {
         this.skill = skill;
         this.jobDescription = jobDescription;
         this.imageDTO = imageDTO;
+        this.branchDTOList = branchDTOList;
+        this.locationDTOList = locationDTOList;
     }
 
     public Integer getCompanyId() {
@@ -51,11 +58,11 @@ public class CompanyDTO {
         this.name = name;
     }
 
-    public EmployeeType getEmployeeType() {
+    public String getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType(EmployeeType employeeType) {
+    public void setEmployeeType(String employeeType) {
         this.employeeType = employeeType;
     }
 
@@ -105,5 +112,21 @@ public class CompanyDTO {
 
     public void setImageDTO(ImageDTO imageDTO) {
         this.imageDTO = imageDTO;
+    }
+
+    public List<BranchDTO> getBranchDTOList() {
+        return branchDTOList;
+    }
+
+    public void setBranchDTOList(List<BranchDTO> branchDTOList) {
+        this.branchDTOList = branchDTOList;
+    }
+
+    public List<LocationDTO> getLocationDTOList() {
+        return locationDTOList;
+    }
+
+    public void setLocationDTOList(List<LocationDTO> locationDTOList) {
+        this.locationDTOList = locationDTOList;
     }
 }

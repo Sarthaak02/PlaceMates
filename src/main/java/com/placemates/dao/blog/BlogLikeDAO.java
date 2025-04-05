@@ -17,11 +17,11 @@ public class BlogLikeDAO {
     @Column(name = "LIKED_AT")
     private LocalDateTime likedAt;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "BLOG_ID")
     private BlogDAO blogDAO;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private UserDAO likeByDAO;
 

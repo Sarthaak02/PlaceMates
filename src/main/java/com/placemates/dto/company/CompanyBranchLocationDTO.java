@@ -10,7 +10,6 @@ public class CompanyBranchLocationDTO {
 
     @NotNull
     private CompanyDTO companyDTO;
-
     private BranchDTO branchDTO;
     private LocationDTO locationDTO;
 
