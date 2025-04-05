@@ -1,10 +1,17 @@
 package com.placemates.dto.user;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class FeedbackDTO {
     private Integer feedBackId;
     private UserDTO userDTO;
+
+    @NotNull
     private Integer rating;
+
+    @NotBlank
     private String message;
 
     public FeedbackDTO() {

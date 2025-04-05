@@ -42,12 +42,12 @@ public class CompanyServiceImpl implements CompanyService{
 
         List<BranchDTO> branchDTOList = new ArrayList<>();
         if (companyDTO.getBranchDTOList() != null && !companyDTO.getBranchDTOList().isEmpty()) {
-            branchDTOList = companyBranchLocationServiceImpl.saveBranchList(companyDTO.getBranchDTOList(), companyDAO);
+            branchDTOList = companyBranchLocationServiceImpl.saveAllBranches(companyDTO.getBranchDTOList(), companyDAO);
         }
 
         List<LocationDTO> locationDTOList = new ArrayList<>();
         if (companyDTO.getLocationDTOList() != null && !companyDTO.getLocationDTOList().isEmpty()) {
-            locationDTOList = companyBranchLocationServiceImpl.saveLocationList(companyDTO.getLocationDTOList(), companyDAO);
+            locationDTOList = companyBranchLocationServiceImpl.saveAllLocations(companyDTO.getLocationDTOList(), companyDAO);
         }
 
         companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);
@@ -67,10 +67,10 @@ public class CompanyServiceImpl implements CompanyService{
 
         CompanyDTO companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);
 
-        List<BranchDTO> branchDTOList = companyBranchLocationServiceImpl.getBranchList(id);
+        List<BranchDTO> branchDTOList = companyBranchLocationServiceImpl.getAllBranches(id);
         companyDTO.setBranchDTOList(branchDTOList);
 
-        List<LocationDTO> locationDTOList = companyBranchLocationServiceImpl.getLocationList(id);
+        List<LocationDTO> locationDTOList = companyBranchLocationServiceImpl.getAllLocations(id);
         companyDTO.setLocationDTOList(locationDTOList);
 
         return companyDTO;
@@ -85,9 +85,9 @@ public class CompanyServiceImpl implements CompanyService{
         else{
             logger.info("{} companies found", companyDAOList.size());
             for(CompanyDTO companyDTO : companyDTOList){
-                List<BranchDTO> branchDTOList = companyBranchLocationServiceImpl.getBranchList(companyDTO.getCompanyId());
+                List<BranchDTO> branchDTOList = companyBranchLocationServiceImpl.getAllBranches(companyDTO.getCompanyId());
                 companyDTO.setBranchDTOList(branchDTOList);
-                List<LocationDTO> locationDTOList = companyBranchLocationServiceImpl.getLocationList(companyDTO.getCompanyId());
+                List<LocationDTO> locationDTOList = companyBranchLocationServiceImpl.getAllLocations(companyDTO.getCompanyId());
                 companyDTO.setLocationDTOList(locationDTOList);
             }
         }
@@ -114,12 +114,12 @@ public class CompanyServiceImpl implements CompanyService{
 
         List<BranchDTO> branchDTOList = new ArrayList<>();
         if (companyDTO.getBranchDTOList() != null && !companyDTO.getBranchDTOList().isEmpty()) {
-            branchDTOList = companyBranchLocationServiceImpl.saveBranchList(companyDTO.getBranchDTOList(), companyDAO);
+            branchDTOList = companyBranchLocationServiceImpl.saveAllBranches(companyDTO.getBranchDTOList(), companyDAO);
         }
 
         List<LocationDTO> locationDTOList = new ArrayList<>();
         if (companyDTO.getLocationDTOList() != null && !companyDTO.getLocationDTOList().isEmpty()) {
-            locationDTOList = companyBranchLocationServiceImpl.saveLocationList(companyDTO.getLocationDTOList(), companyDAO);
+            locationDTOList = companyBranchLocationServiceImpl.saveAllLocations(companyDTO.getLocationDTOList(), companyDAO);
         }
 
         companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);

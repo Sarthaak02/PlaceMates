@@ -24,7 +24,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     }
 
     @Override
-    public List<BranchDTO> saveBranchList(List<BranchDTO> branchDTOList, CompanyDAO companyDAO) {
+    public List<BranchDTO> saveAllBranches(List<BranchDTO> branchDTOList, CompanyDAO companyDAO) {
         for(BranchDTO branchDTO : branchDTOList){
             CompanyBranchLocationDAO companyBranchLocationDAO = new CompanyBranchLocationDAO();
             companyBranchLocationDAO.setCompanyDAO(companyDAO);
@@ -36,7 +36,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     }
 
     @Override
-    public List<LocationDTO> saveLocationList(List<LocationDTO> locationDTOList, CompanyDAO companyDAO) {
+    public List<LocationDTO> saveAllLocations(List<LocationDTO> locationDTOList, CompanyDAO companyDAO) {
         for(LocationDTO locationDTO : locationDTOList){
             CompanyBranchLocationDAO companyBranchLocationDAO = new CompanyBranchLocationDAO();
             companyBranchLocationDAO.setCompanyDAO(companyDAO);
@@ -48,7 +48,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     }
 
     @Override
-    public List<BranchDTO> getBranchList(Integer id) {
+    public List<BranchDTO> getAllBranches(Integer id) {
         List<CompanyBranchLocationDAO> companyBranchLocationDAOList = companyBranchLocationRepository.findAllByCompanyDAO_CompanyId(id);
         List<BranchDTO> branchDTOList = new ArrayList<>();
         if(!companyBranchLocationDAOList.isEmpty()){
@@ -61,7 +61,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     }
 
     @Override
-    public List<LocationDTO> getLocationList(Integer id) {
+    public List<LocationDTO> getAllLocations(Integer id) {
         List<CompanyBranchLocationDAO> companyBranchLocationDAOList = companyBranchLocationRepository.findAllByCompanyDAO_CompanyId(id);
         List<LocationDTO> locationDTOList = new ArrayList<>();
         if(!companyBranchLocationDAOList.isEmpty()){

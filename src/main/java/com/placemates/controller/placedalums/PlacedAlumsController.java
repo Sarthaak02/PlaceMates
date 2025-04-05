@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/placed-alums")
+@RequestMapping("/placed-alum")
 public class PlacedAlumsController {
 
     private final PlacedAlumsServiceImpl placedAlumsServiceImpl;

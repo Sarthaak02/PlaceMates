@@ -7,9 +7,9 @@ import com.placemates.dto.common.LocationDTO;
 import java.util.List;
 
 public interface CompanyBranchLocationService {
-    List<BranchDTO> saveBranchList(List<BranchDTO> branchDTOList, CompanyDAO companyDAO);
-    List<LocationDTO> saveLocationList(List<LocationDTO> locationDTOList, CompanyDAO companyDAO);
-    List<BranchDTO> getBranchList(Integer id);
-    List<LocationDTO> getLocationList(Integer id);
+    List<BranchDTO> saveAllBranches(List<BranchDTO> branchDTOList, CompanyDAO companyDAO);
+    List<LocationDTO> saveAllLocations(List<LocationDTO> locationDTOList, CompanyDAO companyDAO);
+    List<BranchDTO> getAllBranches(Integer id);
+    List<LocationDTO> getAllLocations(Integer id);
     void deleteAllByCompany(Integer id);
 }
