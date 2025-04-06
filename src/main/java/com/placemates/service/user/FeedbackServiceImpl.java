@@ -22,7 +22,9 @@ public class FeedbackServiceImpl implements FeedbackService{
 
     @Override
     public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO) {
-        FeedbackDAO feedbackDAO = feedbackRepository.save(FeedbackMapper.INSTANCE.fromDTOToDAO(feedbackDTO));
+        FeedbackDAO feedbackDAO = FeedbackMapper.INSTANCE.fromDTOToDAO(feedbackDTO);
+        feedbackDAO.setFeedBackId(null);
+        feedbackDAO = feedbackRepository.save(feedbackDAO);
         logger.info("Feedback saved successfully");
         return FeedbackMapper.INSTANCE.fromDAOToDTO(feedbackDAO);
     }

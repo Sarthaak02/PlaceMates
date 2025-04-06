@@ -34,7 +34,6 @@ public class CompanyServiceImpl implements CompanyService{
             throw new ResourceAlreadyExistsException("Company already exists with name: " + companyDTO.getName());
         }
         CompanyDAO companyDAO = CompanyMapper.INSTANCE.fromDTOToDAO(companyDTO);
-//        if passed from api/ui so set null
         companyDAO.setCompanyId(null);
 
         companyDAO = companyRepository.save(companyDAO);

@@ -1,7 +1,7 @@
 package com.placemates.controller.user;
 
 import com.placemates.dto.user.FeedbackDTO;
-import com.placemates.service.user.FeedbackServiceImpl;
+import com.placemates.service.user.FeedbackService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,19 +11,19 @@ import java.util.List;
 @RequestMapping("/feedback")
 public class FeedbackController {
 
-    private final FeedbackServiceImpl feedbackServiceImpl;
+    private final FeedbackService feedbackService;
 
-    public FeedbackController(FeedbackServiceImpl feedbackServiceImpl) {
-        this.feedbackServiceImpl = feedbackServiceImpl;
+    public FeedbackController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
     }
 
     @PostMapping("/create")
     public FeedbackDTO createFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO){
-        return feedbackServiceImpl.createFeedback(feedbackDTO);
+        return feedbackService.createFeedback(feedbackDTO);
     }
 
     @GetMapping("")
     public List<FeedbackDTO> getAllFeedbacks(){
-        return feedbackServiceImpl.getAllFeedbacks();
+        return feedbackService.getAllFeedbacks();
     }
 }

@@ -1,7 +1,7 @@
 package com.placemates.controller.placedalums;
 
 import com.placemates.dto.placedalums.PlacedAlumsDTO;
-import com.placemates.service.placedalums.PlacedAlumsServiceImpl;
+import com.placemates.service.placedalums.PlacedAlumsService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,34 +11,34 @@ import java.util.List;
 @RequestMapping("/placed-alum")
 public class PlacedAlumsController {
 
-    private final PlacedAlumsServiceImpl placedAlumsServiceImpl;
+    private final PlacedAlumsService placedAlumsService;
 
-    public PlacedAlumsController(PlacedAlumsServiceImpl placedAlumsServiceImpl) {
-        this.placedAlumsServiceImpl = placedAlumsServiceImpl;
+    public PlacedAlumsController(PlacedAlumsService placedAlumsService) {
+        this.placedAlumsService = placedAlumsService;
     }
 
     @PostMapping("/create")
     PlacedAlumsDTO createPlacedAlums(@Valid @RequestBody PlacedAlumsDTO placedAlumsDTO){
-        return placedAlumsServiceImpl.createPlacedAlums(placedAlumsDTO);
+        return placedAlumsService.createPlacedAlums(placedAlumsDTO);
     }
 
     @GetMapping("/{id}")
     PlacedAlumsDTO getPlacedAlums(@PathVariable Integer id){
-        return placedAlumsServiceImpl.getPlacedAlumsById(id);
+        return placedAlumsService.getPlacedAlumsById(id);
     }
 
     @GetMapping("")
     List<PlacedAlumsDTO> getAllPlacedAlumni(){
-        return placedAlumsServiceImpl.getAllPlacedAlumni();
+        return placedAlumsService.getAllPlacedAlumni();
     }
 
     @PutMapping("/{id}")
     PlacedAlumsDTO updatePlacedAlums(@PathVariable Integer id, @Valid @RequestBody PlacedAlumsDTO placedAlumsDTO){
-        return placedAlumsServiceImpl.updatePlacedAlumsById(id,placedAlumsDTO);
+        return placedAlumsService.updatePlacedAlumsById(id,placedAlumsDTO);
     }
 
     @DeleteMapping("/{id}")
     void deletePlacedAlums(@PathVariable Integer id){
-        placedAlumsServiceImpl.deletePlacedAlumsById(id);
+        placedAlumsService.deletePlacedAlumsById(id);
     }
 }
