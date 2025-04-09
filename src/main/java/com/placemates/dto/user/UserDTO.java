@@ -22,6 +22,7 @@ public class UserDTO {
     @NotBlank
     private String mail;
 
+    @Pattern(regexp = "^[0-9]{10}$")
     private String mobileNumber;
 
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&(){}\\[\\]:;<>,/~_+\\-=|\\\\]).{8,32}$")

@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface CompanyService {
     CompanyDTO createCompany(CompanyDTO companyDTO);
-    CompanyDTO getCompanyById(Integer id);
+    CompanyDTO getCompany(Integer id);
     List<CompanyDTO> getAllCompanies();
-    CompanyDTO updateCompanyById(Integer id, CompanyDTO companyDTO);
-    void deleteCompanyById(Integer id);
+    CompanyDTO updateCompany(Integer id, CompanyDTO companyDTO);
+    void deleteCompany(Integer id);
 }

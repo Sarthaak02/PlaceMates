@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BlogDTO {
 
@@ -20,25 +21,33 @@ public class BlogDTO {
     @NotBlank
     private String content;
 
-    @NotNull
-    private LocalDateTime createdAt;
+    private int likeCount;
+    private List<BlogLikeDTO> blogLikeDTOList;
 
-    @NotNull
+    private int commentCount;
+    private List<BlogCommentDTO> blogCommentDTOList;
+
+    private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     @NotNull
     private UserDTO createdByDTO;
+
 
     private ImageDTO imageDTO;
 
     public BlogDTO() {
     }
 
-    public BlogDTO(Integer blogId, String title, String category, String content, LocalDateTime createdAt, LocalDateTime updatedAt, UserDTO createdByDTO, ImageDTO imageDTO) {
+    public BlogDTO(Integer blogId, String title, String category, String content, int likeCount, List<BlogLikeDTO> blogLikeDTOList, int commentCount, List<BlogCommentDTO> blogCommentDTOList, LocalDateTime createdAt, LocalDateTime updatedAt, UserDTO createdByDTO, ImageDTO imageDTO) {
         this.blogId = blogId;
         this.title = title;
         this.category = category;
         this.content = content;
+        this.likeCount = likeCount;
+        this.blogLikeDTOList = blogLikeDTOList;
+        this.commentCount = commentCount;
+        this.blogCommentDTOList = blogCommentDTOList;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.createdByDTO = createdByDTO;
@@ -75,6 +84,38 @@ public class BlogDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public List<BlogLikeDTO> getBlogLikeDTOList() {
+        return blogLikeDTOList;
+    }
+
+    public void setBlogLikeDTOList(List<BlogLikeDTO> blogLikeDTOList) {
+        this.blogLikeDTOList = blogLikeDTOList;
+    }
+
+    public List<BlogCommentDTO> getBlogCommentDTOList() {
+        return blogCommentDTOList;
+    }
+
+    public void setBlogCommentDTOList(List<BlogCommentDTO> blogCommentDTOList) {
+        this.blogCommentDTOList = blogCommentDTOList;
     }
 
     public LocalDateTime getCreatedAt() {

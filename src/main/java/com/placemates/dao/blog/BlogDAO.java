@@ -3,6 +3,7 @@ package com.placemates.dao.blog;
 import com.placemates.dao.common.ImageDAO;
 import com.placemates.dao.user.UserDAO;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDateTime;
 
@@ -21,8 +22,14 @@ public class BlogDAO {
     @Column(name = "CATEGORY")
     private String category;
 
-    @Column(name = "content")
+    @Column(name = "CONTENT")
     private String content;
+
+    @Formula("(SELECT COUNT(*) FROM BLOG_LIKE l WHERE l.BLOG_ID = BLOG_ID)")
+    private int likeCount;
+
+    @Formula("(SELECT COUNT(*) FROM BLOG_COMMENT c WHERE c.BLOG_ID = BLOG_ID)")
+    private int commentCount;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -31,7 +38,7 @@ public class BlogDAO {
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "CREATED_BY")
     private UserDAO createdByDAO;
 
     @OneToOne
@@ -41,11 +48,13 @@ public class BlogDAO {
     public BlogDAO() {
     }
 
-    public BlogDAO(Integer blogId, String title, String category, String content, LocalDateTime createdAt, LocalDateTime updatedAt, UserDAO createdByDAO, ImageDAO imageDAO) {
+    public BlogDAO(Integer blogId, String title, String category, String content, int likeCount, int commentCount, LocalDateTime createdAt, LocalDateTime updatedAt, UserDAO createdByDAO, ImageDAO imageDAO) {
         this.blogId = blogId;
         this.title = title;
         this.category = category;
         this.content = content;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.createdByDAO = createdByDAO;
@@ -82,6 +91,22 @@ public class BlogDAO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     public LocalDateTime getCreatedAt() {

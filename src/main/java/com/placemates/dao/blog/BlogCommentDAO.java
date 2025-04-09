@@ -25,7 +25,7 @@ public class BlogCommentDAO {
     private BlogDAO blogDAO;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "COMMENT_BY")
     private UserDAO commentByDAO;
 
     public BlogCommentDAO() {

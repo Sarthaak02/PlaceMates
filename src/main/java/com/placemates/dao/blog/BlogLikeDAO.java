@@ -22,7 +22,7 @@ public class BlogLikeDAO {
     private BlogDAO blogDAO;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "LIKE_BY")
     private UserDAO likeByDAO;
 
     public BlogLikeDAO() {

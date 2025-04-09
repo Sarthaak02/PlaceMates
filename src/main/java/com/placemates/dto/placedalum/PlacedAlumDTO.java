@@ -1,70 +1,54 @@
-package com.placemates.dao.placedalums;
+package com.placemates.dto.placedalum;
 
-import com.placemates.dao.common.BranchDAO;
-import com.placemates.dao.common.ImageDAO;
-import com.placemates.dao.company.CompanyDAO;
+import com.placemates.dto.common.BranchDTO;
+import com.placemates.dto.common.ImageDTO;
+import com.placemates.dto.company.CompanyDTO;
 import com.placemates.enums.Gender;
-import com.placemates.util.convertor.GenderConvertor;
-import jakarta.persistence.*;
+
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "PLACED_ALUMS")
-public class PlacedAlumsDAO {
+public class PlacedAlumDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PA_ID")
-    private Integer placedAlumsId;
+    private Integer placedAlumId;
 
-    @Column(name = "FIRST_NAME")
+    @NotBlank
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @NotBlank
     private String lastName;
 
-    @Column(name = "DESIGNATION")
     private String designation;
 
-    @Column(name = "CTC")
     private BigDecimal ctc;
 
-    @Column(name = "MOB_NO")
+    @Pattern(regexp = "^[0-9]{10}$")
     private String mobileNumber;
 
-    @Column(name = "MAIL")
+    @Email
+    @NotBlank
     private String mail;
 
-    @Column(name = "LINK_TXT")
     private String linkText;
 
-    @Column(name = "LINK")
+    @Pattern(regexp = "^(https?|ftp)://[^\s/$.?#].[^\s]*$|^(www\\.[a-zA-Z0-9-]+\\.[a-zA-Z]{2,})$")
     private String link;
-
-    @Convert(converter = GenderConvertor.class)
-    @Column(name = "GENDER")
+    
     private Gender gender;
-
-    @ManyToOne
-    @JoinColumn(name = "BR_ID")
-    private BranchDAO branchDAO;
-
+    private BranchDTO branchDTO;
     private Integer batch;
 
-    @ManyToOne
-    @JoinColumn(name = "CMP_ID")
-    private CompanyDAO companyDAO;
+    @NotNull
+    private CompanyDTO companyDTO;
 
-    @ManyToOne
-    @JoinColumn(name = "IMG_ID")
-    private ImageDAO imageDAO;
+    private ImageDTO imageDTO;
 
-    public PlacedAlumsDAO() {
+    public PlacedAlumDTO() {
     }
 
-    public PlacedAlumsDAO(Integer placedAlumsId, String firstName, String lastName, String designation, BigDecimal ctc, String mobileNumber, String mail, String linkText, String link, Gender gender, BranchDAO branchDAO, Integer batch, CompanyDAO companyDAO, ImageDAO imageDAO) {
-        this.placedAlumsId = placedAlumsId;
+    public PlacedAlumDTO(Integer placedAlumId, String firstName, String lastName, String designation, BigDecimal ctc, String mobileNumber, String mail, String linkText, String link, Gender gender, BranchDTO branchDTO, Integer batch, CompanyDTO companyDTO, ImageDTO imageDTO) {
+        this.placedAlumId = placedAlumId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.designation = designation;
@@ -74,18 +58,18 @@ public class PlacedAlumsDAO {
         this.linkText = linkText;
         this.link = link;
         this.gender = gender;
-        this.branchDAO = branchDAO;
+        this.branchDTO = branchDTO;
         this.batch = batch;
-        this.companyDAO = companyDAO;
-        this.imageDAO = imageDAO;
+        this.companyDTO = companyDTO;
+        this.imageDTO = imageDTO;
     }
 
-    public Integer getPlacedAlumsId() {
-        return placedAlumsId;
+    public Integer getPlacedAlumId() {
+        return placedAlumId;
     }
 
-    public void setPlacedAlumsId(Integer placedAlumsId) {
-        this.placedAlumsId = placedAlumsId;
+    public void setPlacedAlumId(Integer placedAlumId) {
+        this.placedAlumId = placedAlumId;
     }
 
     public String getFirstName() {
@@ -160,12 +144,12 @@ public class PlacedAlumsDAO {
         this.gender = gender;
     }
 
-    public BranchDAO getBranchDAO() {
-        return branchDAO;
+    public BranchDTO getBranchDTO() {
+        return branchDTO;
     }
 
-    public void setBranchDAO(BranchDAO branchDAO) {
-        this.branchDAO = branchDAO;
+    public void setBranchDTO(BranchDTO branchDTO) {
+        this.branchDTO = branchDTO;
     }
 
     public Integer getBatch() {
@@ -176,19 +160,19 @@ public class PlacedAlumsDAO {
         this.batch = batch;
     }
 
-    public CompanyDAO getCompanyDAO() {
-        return companyDAO;
+    public CompanyDTO getCompanyDTO() {
+        return companyDTO;
     }
 
-    public void setCompanyDAO(CompanyDAO companyDAO) {
-        this.companyDAO = companyDAO;
+    public void setCompanyDTO(CompanyDTO companyDTO) {
+        this.companyDTO = companyDTO;
     }
 
-    public ImageDAO getImageDAO() {
-        return imageDAO;
+    public ImageDTO getImageDTO() {
+        return imageDTO;
     }
 
-    public void setImageDAO(ImageDAO imageDAO) {
-        this.imageDAO = imageDAO;
+    public void setImageDTO(ImageDTO imageDTO) {
+        this.imageDTO = imageDTO;
     }
 }

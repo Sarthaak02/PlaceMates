@@ -3,6 +3,7 @@ package com.placemates.dto.company;
 import com.placemates.dto.common.BranchDTO;
 import com.placemates.dto.common.ImageDTO;
 import com.placemates.dto.common.LocationDTO;
+import com.placemates.dto.placedalum.PlacedAlumDTO;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
@@ -22,13 +23,14 @@ public class CompanyDTO {
     private String jobDescription;
     private ImageDTO imageDTO;
 
+    private List<PlacedAlumDTO> placedAlumDTOList;
     private List<BranchDTO> branchDTOList;
     private List<LocationDTO> locationDTOList;
 
     public CompanyDTO() {
     }
 
-    public CompanyDTO(Integer companyId, String name, String employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDTO imageDTO, List<BranchDTO> branchDTOList, List<LocationDTO> locationDTOList) {
+    public CompanyDTO(Integer companyId, String name, String employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDTO imageDTO, List<PlacedAlumDTO> placedAlumDTOList, List<BranchDTO> branchDTOList, List<LocationDTO> locationDTOList) {
         this.companyId = companyId;
         this.name = name;
         this.employeeType = employeeType;
@@ -38,6 +40,7 @@ public class CompanyDTO {
         this.skill = skill;
         this.jobDescription = jobDescription;
         this.imageDTO = imageDTO;
+        this.placedAlumDTOList = placedAlumDTOList;
         this.branchDTOList = branchDTOList;
         this.locationDTOList = locationDTOList;
     }
@@ -112,6 +115,14 @@ public class CompanyDTO {
 
     public void setImageDTO(ImageDTO imageDTO) {
         this.imageDTO = imageDTO;
+    }
+
+    public List<PlacedAlumDTO> getPlacedAlumDTOList() {
+        return placedAlumDTOList;
+    }
+
+    public void setPlacedAlumDTOList(List<PlacedAlumDTO> placedAlumDTOList) {
+        this.placedAlumDTOList = placedAlumDTOList;
     }
 
     public List<BranchDTO> getBranchDTOList() {

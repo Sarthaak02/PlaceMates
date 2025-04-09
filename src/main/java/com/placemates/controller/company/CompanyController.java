@@ -24,7 +24,7 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     public CompanyDTO getCompany(@PathVariable Integer id){
-        return companyService.getCompanyById(id);
+        return companyService.getCompany(id);
     }
 
     @GetMapping("")
@@ -34,11 +34,11 @@ public class CompanyController {
 
     @PutMapping("/{id}")
     public CompanyDTO updateCompany(@PathVariable Integer id, @Valid @RequestBody CompanyDTO companyDTO){
-        return companyService.updateCompanyById(id,companyDTO);
+        return companyService.updateCompany(id,companyDTO);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCompany(@PathVariable Integer id){
-        companyService.deleteCompanyById(id);
+        companyService.deleteCompany(id);
     }
 }
