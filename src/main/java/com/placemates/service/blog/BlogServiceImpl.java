@@ -93,7 +93,6 @@ public class BlogServiceImpl implements BlogService {
         blogDAO.setBlogId(id);
         blogDAO = blogRepository.save(blogDAO);
         logger.info(BLOG + AppConstants.UPDATED + "{}", blogDAO.getBlogId());
-// implementation for fetching the likes and comment if reuired
         return BlogMapper.INSTANCE.fromDAOToDTO(blogDAO);
     }
 

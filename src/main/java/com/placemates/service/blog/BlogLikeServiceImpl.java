@@ -4,14 +4,14 @@ import com.placemates.constant.AppConstants;
 import com.placemates.dao.blog.BlogLikeDAO;
 import com.placemates.dto.blog.BlogDTO;
 import com.placemates.dto.blog.BlogLikeDTO;
-import com.placemates.dto.user.UserDTO;
+import com.placemates.dto.user.UserInfoDTO;
 import com.placemates.exception.ResourceNotFoundException;
 import com.placemates.repository.blog.BlogLikeRepository;
 import com.placemates.repository.blog.BlogRepository;
 import com.placemates.repository.user.UserRepository;
 import com.placemates.util.mapper.blog.BlogLikeMapper;
 import com.placemates.util.mapper.blog.BlogMapper;
-import com.placemates.util.mapper.user.UserMapper;
+import com.placemates.util.mapper.user.UserInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class BlogLikeServiceImpl implements BlogLikeService{
 
     @Override
     public BlogLikeDTO createLikeByUserAndBlog(Integer userId, Integer blogId) {
-        UserDTO userDTO = UserMapper.INSTANCE.fromDAOToDTO(
+        UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
             userRepository.findById(userId).orElseThrow(() ->{
                 logger.info("User" + AppConstants.NOT_FOUND + "{}", userId);
                 return new ResourceNotFoundException("User" + AppConstants.NOT_FOUND + userId);
@@ -55,10 +55,10 @@ public class BlogLikeServiceImpl implements BlogLikeService{
         LocalDateTime currentDateTime = LocalDateTime.now();
         blogLikeDAO.setLikedAt(currentDateTime);
         blogLikeDAO.setBlogDAO(BlogMapper.INSTANCE.fromDTOToDAO(blogDTO));
-        blogLikeDAO.setLikeByDAO(UserMapper.INSTANCE.fromDTOToDAO(userDTO));
+        blogLikeDAO.setLikeByDAO(UserInfoMapper.INSTANCE.fromDTOToDAO(userInfoDTO));
 
         blogLikeRepository.save(blogLikeDAO);
-        logger.info("Blog with id: {}, liked by user with id:{}", blogDTO.getBlogId(), userDTO.getUserId());
+        logger.info("Blog with id: {}, liked by user with id:{}", blogDTO.getBlogId(), userInfoDTO.getUserId());
 
         return BlogLikeMapper.INSTANCE.fromDAOToDTO(blogLikeDAO);
     }

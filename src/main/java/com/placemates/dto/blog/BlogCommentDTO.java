@@ -1,6 +1,6 @@
 package com.placemates.dto.blog;
 
-import com.placemates.dto.user.UserDTO;
+import com.placemates.dto.user.UserInfoDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,12 +20,12 @@ public class BlogCommentDTO {
     private BlogDTO blogDTO;
 
     @NotNull
-    private UserDTO commentByDTO;
+    private UserInfoDTO commentByDTO;
 
     public BlogCommentDTO() {
     }
 
-    public BlogCommentDTO(Integer commentId, String content, LocalDateTime commentedAt, BlogDTO blogDTO, UserDTO commentByDTO) {
+    public BlogCommentDTO(Integer commentId, String content, LocalDateTime commentedAt, BlogDTO blogDTO, UserInfoDTO commentByDTO) {
         this.commentId = commentId;
         this.content = content;
         this.commentedAt = commentedAt;
@@ -65,11 +65,11 @@ public class BlogCommentDTO {
         this.blogDTO = blogDTO;
     }
 
-    public UserDTO getCommentByDTO() {
+    public UserInfoDTO getCommentByDTO() {
         return commentByDTO;
     }
 
-    public void setCommentByDTO(UserDTO commentByDTO) {
+    public void setCommentByDTO(UserInfoDTO commentByDTO) {
         this.commentByDTO = commentByDTO;
     }
 }

@@ -1,7 +1,7 @@
 package com.placemates.dto.blog;
 
 import com.placemates.dto.common.ImageDTO;
-import com.placemates.dto.user.UserDTO;
+import com.placemates.dto.user.UserInfoDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -31,7 +31,7 @@ public class BlogDTO {
     private LocalDateTime updatedAt;
 
     @NotNull
-    private UserDTO createdByDTO;
+    private UserInfoDTO createdByDTO;
 
 
     private ImageDTO imageDTO;
@@ -39,7 +39,7 @@ public class BlogDTO {
     public BlogDTO() {
     }
 
-    public BlogDTO(Integer blogId, String title, String category, String content, int likeCount, List<BlogLikeDTO> blogLikeDTOList, int commentCount, List<BlogCommentDTO> blogCommentDTOList, LocalDateTime createdAt, LocalDateTime updatedAt, UserDTO createdByDTO, ImageDTO imageDTO) {
+    public BlogDTO(Integer blogId, String title, String category, String content, int likeCount, List<BlogLikeDTO> blogLikeDTOList, int commentCount, List<BlogCommentDTO> blogCommentDTOList, LocalDateTime createdAt, LocalDateTime updatedAt, UserInfoDTO createdByDTO, ImageDTO imageDTO) {
         this.blogId = blogId;
         this.title = title;
         this.category = category;
@@ -134,11 +134,11 @@ public class BlogDTO {
         this.updatedAt = updatedAt;
     }
 
-    public UserDTO getCreatedByDTO() {
+    public UserInfoDTO getCreatedByDTO() {
         return createdByDTO;
     }
 
-    public void setCreatedByDTO(UserDTO createdByDTO) {
+    public void setCreatedByDTO(UserInfoDTO createdByDTO) {
         this.createdByDTO = createdByDTO;
     }
 

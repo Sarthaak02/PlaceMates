@@ -8,20 +8,20 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(uses = UserMapper.class)
+@Mapper(uses = UserInfoMapper.class)
 public interface FeedbackMapper {
 
     FeedbackMapper INSTANCE = Mappers.getMapper(FeedbackMapper.class);
 
-    @Mapping(source = "userDTO", target = "userDAO")
+    @Mapping(source = "userInfoDTO", target = "userDAO")
     FeedbackDAO fromDTOToDAO(FeedbackDTO feedbackDTO);
 
-    @Mapping(source = "userDAO", target = "userDTO")
+    @Mapping(source = "userDAO", target = "userInfoDTO")
     FeedbackDTO fromDAOToDTO(FeedbackDAO feedbackDAO);
 
-    @Mapping(source = "userDTO", target = "userDAO")
+    @Mapping(source = "userInfoDTO", target = "userDAO")
     List<FeedbackDAO> fromDTOListToDAOList(List<FeedbackDTO> feedbackDTOList);
 
-    @Mapping(source = "userDAO", target = "userDTO")
+    @Mapping(source = "userDAO", target = "userInfoDTO")
     List<FeedbackDTO> fromDAOListToDTOList(List<FeedbackDAO> feedbackDAOList);
 }

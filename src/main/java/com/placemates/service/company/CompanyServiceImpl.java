@@ -35,6 +35,7 @@ public class CompanyServiceImpl implements CompanyService{
         this.placedAlumRepository = placedAlumRepository;
     }
 
+    @Transactional
     @Override
     public CompanyDTO createCompany(CompanyDTO companyDTO) {
         if(companyRepository.findByName(companyDTO.getName()) != null){
@@ -120,8 +121,6 @@ public class CompanyServiceImpl implements CompanyService{
         logger.info(COMPANY + AppConstants.UPDATED + "{}", id);
 
         companyBranchLocationService.deleteAllByCompany(id);
-
-//      Differeern between previos and current brnahces and location can be check adn if the foudn then only change os it can avoid unnessary deltion and inseetton of brnachand locaitin
 
         List<BranchDTO> branchDTOList = new ArrayList<>();
         if (companyDTO.getBranchDTOList() != null && !companyDTO.getBranchDTOList().isEmpty()) {

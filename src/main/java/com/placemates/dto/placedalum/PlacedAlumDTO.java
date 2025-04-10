@@ -23,7 +23,7 @@ public class PlacedAlumDTO {
 
     private BigDecimal ctc;
 
-    @Pattern(regexp = "^[0-9]{10}$")
+    @Pattern(regexp = "^\\d{10}$")
     private String mobileNumber;
 
     @Email

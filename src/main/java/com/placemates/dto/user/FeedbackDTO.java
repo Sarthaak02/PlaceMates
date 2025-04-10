@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class FeedbackDTO {
     private Integer feedBackId;
-    private UserDTO userDTO;
+    private UserInfoDTO userInfoDTO;
 
     @NotNull
     private Integer rating;
@@ -17,9 +17,9 @@ public class FeedbackDTO {
     public FeedbackDTO() {
     }
 
-    public FeedbackDTO(Integer feedBackId, UserDTO userDTO, Integer rating, String message) {
+    public FeedbackDTO(Integer feedBackId, UserInfoDTO userInfoDTO, Integer rating, String message) {
         this.feedBackId = feedBackId;
-        this.userDTO = userDTO;
+        this.userInfoDTO = userInfoDTO;
         this.rating = rating;
         this.message = message;
     }
@@ -32,12 +32,12 @@ public class FeedbackDTO {
         this.feedBackId = feedBackId;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
+    public UserInfoDTO getUserInfoDTO() {
+        return userInfoDTO;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setUserInfoDTO(UserInfoDTO userInfoDTO) {
+        this.userInfoDTO = userInfoDTO;
     }
 
     public Integer getRating() {

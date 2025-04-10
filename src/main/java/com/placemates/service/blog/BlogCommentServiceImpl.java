@@ -4,14 +4,14 @@ import com.placemates.constant.AppConstants;
 import com.placemates.dao.blog.BlogCommentDAO;
 import com.placemates.dto.blog.BlogCommentDTO;
 import com.placemates.dto.blog.BlogDTO;
-import com.placemates.dto.user.UserDTO;
+import com.placemates.dto.user.UserInfoDTO;
 import com.placemates.exception.ResourceNotFoundException;
 import com.placemates.repository.blog.BlogCommentRepository;
 import com.placemates.repository.blog.BlogRepository;
 import com.placemates.repository.user.UserRepository;
 import com.placemates.util.mapper.blog.BlogCommentMapper;
 import com.placemates.util.mapper.blog.BlogMapper;
-import com.placemates.util.mapper.user.UserMapper;
+import com.placemates.util.mapper.user.UserInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class BlogCommentServiceImpl implements BlogCommentService{
 
     @Override
     public BlogCommentDTO createCommentByUserAndBlog(Integer userId, Integer blogId, String content) {
-        UserDTO userDTO = UserMapper.INSTANCE.fromDAOToDTO(
+        UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
             userRepository.findById(userId).orElseThrow(() ->{
                 logger.info("User" + AppConstants.NOT_FOUND + "{}", userId);
                 return new ResourceNotFoundException("User" + AppConstants.NOT_FOUND + userId);
@@ -54,11 +54,11 @@ public class BlogCommentServiceImpl implements BlogCommentService{
         LocalDateTime currentDateTime = LocalDateTime.now();
         blogCommentDTO.setCommentedAt(currentDateTime);
         blogCommentDTO.setBlogDTO(blogDTO);
-        blogCommentDTO.setCommentByDTO(userDTO);
+        blogCommentDTO.setCommentByDTO(userInfoDTO);
         blogCommentDTO.setContent(content);
 
         BlogCommentDAO blogCommentDAO = blogCommentRepository.save(BlogCommentMapper.INSTANCE.fromDTOToDAO(blogCommentDTO));
-        logger.info("User with id: {} commented on the blog with id: {}", userDTO.getUserId(), blogDTO.getBlogId());
+        logger.info("User with id: {} commented on the blog with id: {}", userInfoDTO.getUserId(), blogDTO.getBlogId());
 
         return BlogCommentMapper.INSTANCE.fromDAOToDTO(blogCommentDAO);
     }

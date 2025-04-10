@@ -1,6 +1,6 @@
 package com.placemates.dto.blog;
 
-import com.placemates.dto.user.UserDTO;
+import com.placemates.dto.user.UserInfoDTO;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -15,12 +15,12 @@ public class BlogLikeDTO {
     private BlogDTO blogDTO;
 
     @NotNull
-    private UserDTO likeByDTO;
+    private UserInfoDTO likeByDTO;
 
     public BlogLikeDTO() {
     }
 
-    public BlogLikeDTO(Integer likeID, LocalDateTime likedAt, BlogDTO blogDTO, UserDTO likeByDTO) {
+    public BlogLikeDTO(Integer likeID, LocalDateTime likedAt, BlogDTO blogDTO, UserInfoDTO likeByDTO) {
         this.likeID = likeID;
         this.likedAt = likedAt;
         this.blogDTO = blogDTO;
@@ -51,11 +51,11 @@ public class BlogLikeDTO {
         this.blogDTO = blogDTO;
     }
 
-    public UserDTO getLikeByDTO() {
+    public UserInfoDTO getLikeByDTO() {
         return likeByDTO;
     }
 
-    public void setLikeByDTO(UserDTO likeByDTO) {
+    public void setLikeByDTO(UserInfoDTO likeByDTO) {
         this.likeByDTO = likeByDTO;
     }
 }

@@ -1,6 +1,7 @@
 package com.placemates.service.user;
 
 import com.placemates.constant.AppConstants;
+import com.placemates.dao.user.RoleDAO;
 import com.placemates.dao.user.UserDAO;
 import com.placemates.dto.user.RoleDTO;
 import com.placemates.dto.user.UserDTO;
@@ -66,10 +67,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO updateUser(Integer id, UserDTO userDTO) {
-        if(!userRepository.existsById(id)){
+        UserDAO userDAO = userRepository.findById(id).orElseThrow(() -> {
             logger.error(USER + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(USER + AppConstants.NOT_FOUND + id);
-        }
+            return new ResourceNotFoundException(USER + AppConstants.NOT_FOUND + id);
+        });
 
         if(userRepository.findByMail(userDTO.getMail()) != null && userRepository.findByMail(userDTO.getMail()).getUserId() != id) {
             logger.warn(USER + AppConstants.ALREADY_EXISTS + "email: {}", userDTO.getMail());
@@ -82,9 +83,14 @@ public class UserServiceImpl implements UserService{
         }
 
         //If the role is not passed from ui i.e. not in dto then set role here
-        UserDAO userDAO = UserMapper.INSTANCE.fromDTOToDAO(userDTO);
+//        May be changed for the admin dashboard he has access to change the role of the user then for that implement the patch method
+        RoleDAO roleDAO = userDAO.getRoleDAO();
+
+        userDAO = UserMapper.INSTANCE.fromDTOToDAO(userDTO);
         userDAO.setUserId(id);
-        userRepository.save(userDAO);
+        userDAO.setRoleDAO(roleDAO);
+
+        userDAO = userRepository.save(userDAO);
         logger.info(USER + AppConstants.UPDATED + "{}", userDAO.getUserId());
         return UserMapper.INSTANCE.fromDAOToDTO(userDAO);
     }

@@ -2,14 +2,14 @@ package com.placemates.util.mapper.blog;
 
 import com.placemates.dao.blog.BlogCommentDAO;
 import com.placemates.dto.blog.BlogCommentDTO;
-import com.placemates.util.mapper.user.UserMapper;
+import com.placemates.util.mapper.user.UserInfoMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(uses = {BlogMapper.class, UserMapper.class})
+@Mapper(uses = {BlogMapper.class, UserInfoMapper.class})
 public interface BlogCommentMapper {
     BlogCommentMapper INSTANCE = Mappers.getMapper(BlogCommentMapper.class);
 

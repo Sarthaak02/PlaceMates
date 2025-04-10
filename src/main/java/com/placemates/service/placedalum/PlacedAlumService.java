@@ -5,7 +5,6 @@ import com.placemates.dto.placedalum.PlacedAlumDTO;
 import java.util.List;
 
 public interface PlacedAlumService {
-
     PlacedAlumDTO createPlacedAlum(PlacedAlumDTO placedAlumDTO);
     PlacedAlumDTO getPlacedAlum(Integer id);
     List<PlacedAlumDTO> getAllPlacedAlums();
