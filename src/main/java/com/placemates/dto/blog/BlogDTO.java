@@ -4,10 +4,16 @@ import com.placemates.dto.common.ImageDTO;
 import com.placemates.dto.user.UserInfoDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class BlogDTO {
 
     private Integer blogId;
@@ -33,120 +39,5 @@ public class BlogDTO {
     @NotNull
     private UserInfoDTO createdByDTO;
 
-
     private ImageDTO imageDTO;
-
-    public BlogDTO() {
-    }
-
-    public BlogDTO(Integer blogId, String title, String category, String content, int likeCount, List<BlogLikeDTO> blogLikeDTOList, int commentCount, List<BlogCommentDTO> blogCommentDTOList, LocalDateTime createdAt, LocalDateTime updatedAt, UserInfoDTO createdByDTO, ImageDTO imageDTO) {
-        this.blogId = blogId;
-        this.title = title;
-        this.category = category;
-        this.content = content;
-        this.likeCount = likeCount;
-        this.blogLikeDTOList = blogLikeDTOList;
-        this.commentCount = commentCount;
-        this.blogCommentDTOList = blogCommentDTOList;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.createdByDTO = createdByDTO;
-        this.imageDTO = imageDTO;
-    }
-
-    public Integer getBlogId() {
-        return blogId;
-    }
-
-    public void setBlogId(Integer blogId) {
-        this.blogId = blogId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public List<BlogLikeDTO> getBlogLikeDTOList() {
-        return blogLikeDTOList;
-    }
-
-    public void setBlogLikeDTOList(List<BlogLikeDTO> blogLikeDTOList) {
-        this.blogLikeDTOList = blogLikeDTOList;
-    }
-
-    public List<BlogCommentDTO> getBlogCommentDTOList() {
-        return blogCommentDTOList;
-    }
-
-    public void setBlogCommentDTOList(List<BlogCommentDTO> blogCommentDTOList) {
-        this.blogCommentDTOList = blogCommentDTOList;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public UserInfoDTO getCreatedByDTO() {
-        return createdByDTO;
-    }
-
-    public void setCreatedByDTO(UserInfoDTO createdByDTO) {
-        this.createdByDTO = createdByDTO;
-    }
-
-    public ImageDTO getImageDTO() {
-        return imageDTO;
-    }
-
-    public void setImageDTO(ImageDTO imageDTO) {
-        this.imageDTO = imageDTO;
-    }
 }

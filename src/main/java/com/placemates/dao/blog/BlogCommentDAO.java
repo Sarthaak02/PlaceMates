@@ -2,9 +2,15 @@ package com.placemates.dao.blog;
 
 import com.placemates.dao.user.UserDAO;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "BLOG_COMMENT")
 public class BlogCommentDAO {
@@ -27,55 +33,4 @@ public class BlogCommentDAO {
     @ManyToOne
     @JoinColumn(name = "COMMENT_BY")
     private UserDAO commentByDAO;
-
-    public BlogCommentDAO() {
-    }
-
-    public BlogCommentDAO(Integer commentId, String content, LocalDateTime commentedAt, BlogDAO blogDAO, UserDAO commentByDAO) {
-        this.commentId = commentId;
-        this.content = content;
-        this.commentedAt = commentedAt;
-        this.blogDAO = blogDAO;
-        this.commentByDAO = commentByDAO;
-    }
-
-    public Integer getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getCommentedAt() {
-        return commentedAt;
-    }
-
-    public void setCommentedAt(LocalDateTime commentedAt) {
-        this.commentedAt = commentedAt;
-    }
-
-    public BlogDAO getBlogDAO() {
-        return blogDAO;
-    }
-
-    public void setBlogDAO(BlogDAO blogDAO) {
-        this.blogDAO = blogDAO;
-    }
-
-    public UserDAO getCommentByDAO() {
-        return commentByDAO;
-    }
-
-    public void setCommentByDAO(UserDAO commentByDAO) {
-        this.commentByDAO = commentByDAO;
-    }
 }

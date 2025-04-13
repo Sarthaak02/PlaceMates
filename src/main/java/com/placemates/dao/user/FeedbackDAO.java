@@ -1,7 +1,13 @@
 package com.placemates.dao.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "FEEDBACK")
 public class FeedbackDAO {
@@ -20,46 +26,4 @@ public class FeedbackDAO {
 
     @Column(name = "MESSAGE")
     private String message;
-
-    public FeedbackDAO() {
-    }
-
-    public FeedbackDAO(Integer feedBackId, UserDAO userDAO, Integer rating, String message) {
-        this.feedBackId = feedBackId;
-        this.userDAO = userDAO;
-        this.rating = rating;
-        this.message = message;
-    }
-
-    public Integer getFeedBackId() {
-        return feedBackId;
-    }
-
-    public void setFeedBackId(Integer feedBackId) {
-        this.feedBackId = feedBackId;
-    }
-
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
-
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

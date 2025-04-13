@@ -2,9 +2,15 @@ package com.placemates.dao.blog;
 
 import com.placemates.dao.user.UserDAO;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "BLOG_LIKE")
 public class BlogLikeDAO {
@@ -24,46 +30,4 @@ public class BlogLikeDAO {
     @ManyToOne
     @JoinColumn(name = "LIKE_BY")
     private UserDAO likeByDAO;
-
-    public BlogLikeDAO() {
-    }
-
-    public BlogLikeDAO(Integer likeID, LocalDateTime likedAt, BlogDAO blogDAO, UserDAO likeByDAO) {
-        this.likeID = likeID;
-        this.likedAt = likedAt;
-        this.blogDAO = blogDAO;
-        this.likeByDAO = likeByDAO;
-    }
-
-    public Integer getLikeID() {
-        return likeID;
-    }
-
-    public void setLikeID(Integer likeID) {
-        this.likeID = likeID;
-    }
-
-    public LocalDateTime getLikedAt() {
-        return likedAt;
-    }
-
-    public void setLikedAt(LocalDateTime likedAt) {
-        this.likedAt = likedAt;
-    }
-
-    public BlogDAO getBlogDAO() {
-        return blogDAO;
-    }
-
-    public void setBlogDAO(BlogDAO blogDAO) {
-        this.blogDAO = blogDAO;
-    }
-
-    public UserDAO getLikeByDAO() {
-        return likeByDAO;
-    }
-
-    public void setLikeByDAO(UserDAO likeByDAO) {
-        this.likeByDAO = likeByDAO;
-    }
 }

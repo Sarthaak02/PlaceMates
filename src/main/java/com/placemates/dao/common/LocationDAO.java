@@ -1,7 +1,13 @@
 package com.placemates.dao.common;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "LOCATION")
 public class LocationDAO {
@@ -13,28 +19,4 @@ public class LocationDAO {
 
     @Column(name = "CITY")
     private String city;
-
-    public LocationDAO() {
-    }
-
-    public LocationDAO(Integer locationId, String city) {
-        this.locationId = locationId;
-        this.city = city;
-    }
-
-    public Integer getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(Integer locationId) {
-        this.locationId = locationId;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 }

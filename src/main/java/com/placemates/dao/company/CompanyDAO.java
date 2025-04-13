@@ -2,8 +2,15 @@ package com.placemates.dao.company;
 
 import com.placemates.dao.common.ImageDAO;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "COMPANY")
 public class CompanyDAO {
@@ -37,91 +44,4 @@ public class CompanyDAO {
     @ManyToOne
     @JoinColumn(name = "IMG_ID")
     private ImageDAO imageDAO;
-
-    public CompanyDAO() {
-    }
-
-    public CompanyDAO(Integer companyId, String name, String employeeType, String designation, BigDecimal ctc, String eligibilityCriteria, String skill, String jobDescription, ImageDAO imageDAO) {
-        this.companyId = companyId;
-        this.name = name;
-        this.employeeType = employeeType;
-        this.designation = designation;
-        this.ctc = ctc;
-        this.eligibilityCriteria = eligibilityCriteria;
-        this.skill = skill;
-        this.jobDescription = jobDescription;
-        this.imageDAO = imageDAO;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmployeeType() {
-        return employeeType;
-    }
-
-    public void setEmployeeType(String employeeType) {
-        this.employeeType = employeeType;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-
-    public BigDecimal getCtc() {
-        return ctc;
-    }
-
-    public void setCtc(BigDecimal ctc) {
-        this.ctc = ctc;
-    }
-
-    public String getEligibilityCriteria() {
-        return eligibilityCriteria;
-    }
-
-    public void setEligibilityCriteria(String eligibilityCriteria) {
-        this.eligibilityCriteria = eligibilityCriteria;
-    }
-
-    public String getSkill() {
-        return skill;
-    }
-
-    public void setSkill(String skill) {
-        this.skill = skill;
-    }
-
-    public String getJobDescription() {
-        return jobDescription;
-    }
-
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
-    }
-
-    public ImageDAO getImageDAO() {
-        return imageDAO;
-    }
-
-    public void setImageDAO(ImageDAO imageDAO) {
-        this.imageDAO = imageDAO;
-    }
 }
