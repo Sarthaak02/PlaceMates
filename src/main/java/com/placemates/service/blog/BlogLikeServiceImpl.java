@@ -12,8 +12,7 @@ import com.placemates.repository.user.UserRepository;
 import com.placemates.util.mapper.blog.BlogLikeMapper;
 import com.placemates.util.mapper.blog.BlogMapper;
 import com.placemates.util.mapper.user.UserInfoMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +20,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BlogLikeServiceImpl implements BlogLikeService{
-
-    private static final Logger logger = LoggerFactory.getLogger(BlogLikeServiceImpl.class);
+    
     private final BlogLikeRepository blogLikeRepository;
     private final UserRepository userRepository;
     private final BlogRepository blogRepository;
@@ -38,14 +37,14 @@ public class BlogLikeServiceImpl implements BlogLikeService{
     public BlogLikeDTO createLikeByUserAndBlog(Integer userId, Integer blogId) {
         UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
             userRepository.findById(userId).orElseThrow(() ->{
-                logger.info("User" + AppConstants.NOT_FOUND + "{}", userId);
+                log.info("User" + AppConstants.NOT_FOUND + "{}", userId);
                 return new ResourceNotFoundException("User" + AppConstants.NOT_FOUND + userId);
             })
         );
 
         BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(
             blogRepository.findById(blogId).orElseThrow(() -> {
-                logger.info("Blog" + AppConstants.NOT_FOUND + "{}", blogId);
+                log.info("Blog" + AppConstants.NOT_FOUND + "{}", blogId);
                 return new ResourceNotFoundException("Blog" + AppConstants.NOT_FOUND + blogId);
             })
         );
@@ -58,7 +57,7 @@ public class BlogLikeServiceImpl implements BlogLikeService{
         blogLikeDAO.setLikeByDAO(UserInfoMapper.INSTANCE.fromDTOToDAO(userInfoDTO));
 
         blogLikeRepository.save(blogLikeDAO);
-        logger.info("Blog with id: {}, liked by user with id:{}", blogDTO.getBlogId(), userInfoDTO.getUserId());
+        log.info("Blog with id: {}, liked by user with id:{}", blogDTO.getBlogId(), userInfoDTO.getUserId());
 
         return BlogLikeMapper.INSTANCE.fromDAOToDTO(blogLikeDAO);
     }
@@ -66,8 +65,8 @@ public class BlogLikeServiceImpl implements BlogLikeService{
     @Override
     public List<BlogLikeDTO> getAllLikesByBlog(Integer id) {
         List<BlogLikeDAO> blogLikeDAOList = blogLikeRepository.findAllByBlogDAO_BlogId(id);
-        if(blogLikeDAOList.isEmpty()) logger.warn("Likes" + AppConstants.NO_RECORDS_FOUND);
-        else logger.info("{} likes found", blogLikeDAOList.size());
+        if(blogLikeDAOList.isEmpty()) log.warn("Likes" + AppConstants.NO_RECORDS_FOUND);
+        else log.info("{} likes found", blogLikeDAOList.size());
         return BlogLikeMapper.INSTANCE.fromDAOListToDTOList(blogLikeDAOList);
     }
 
@@ -75,10 +74,10 @@ public class BlogLikeServiceImpl implements BlogLikeService{
     @Override
     public void deleteLikeByUserAndBlog(Integer userId, Integer blogId) {
         if(!blogLikeRepository.existsByLikeByDAO_UserIdAndBlogDAO_BlogId(userId,blogId)){
-            logger.error("Like for blog with id: {} by user with id: {} not found", blogId, userId);
+            log.error("Like for blog with id: {} by user with id: {} not found", blogId, userId);
             throw new ResourceNotFoundException("Like for blog " + blogId + " by user " + userId + " not found");
         }
         blogLikeRepository.deleteByLikeByDAO_UserIdAndBlogDAO_BlogId(userId, blogId);
-        logger.info("Blog with id: {} unliked by user with id: {}", blogId, userId);
+        log.info("Blog with id: {} unliked by user with id: {}", blogId, userId);
     }
 }

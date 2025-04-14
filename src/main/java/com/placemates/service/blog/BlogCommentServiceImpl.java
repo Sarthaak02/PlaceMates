@@ -12,8 +12,7 @@ import com.placemates.repository.user.UserRepository;
 import com.placemates.util.mapper.blog.BlogCommentMapper;
 import com.placemates.util.mapper.blog.BlogMapper;
 import com.placemates.util.mapper.user.UserInfoMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +20,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BlogCommentServiceImpl implements BlogCommentService{
 
-    private static final Logger logger = LoggerFactory.getLogger(BlogCommentServiceImpl.class);
     private final BlogCommentRepository blogCommentRepository;
     private final UserRepository userRepository;
     private final BlogRepository blogRepository;
@@ -38,14 +37,14 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     public BlogCommentDTO createCommentByUserAndBlog(Integer userId, Integer blogId, String content) {
         UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
             userRepository.findById(userId).orElseThrow(() ->{
-                logger.info("User" + AppConstants.NOT_FOUND + "{}", userId);
+                log.info("User" + AppConstants.NOT_FOUND + "{}", userId);
                 return new ResourceNotFoundException("User" + AppConstants.NOT_FOUND + userId);
             })
         );
 
         BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(
             blogRepository.findById(blogId).orElseThrow(() -> {
-                logger.info("Blog" + AppConstants.NOT_FOUND + "{}", blogId);
+                log.info("Blog" + AppConstants.NOT_FOUND + "{}", blogId);
                 return new ResourceNotFoundException("Blog" + AppConstants.NOT_FOUND + blogId);
             })
         );
@@ -58,7 +57,7 @@ public class BlogCommentServiceImpl implements BlogCommentService{
         blogCommentDTO.setContent(content);
 
         BlogCommentDAO blogCommentDAO = blogCommentRepository.save(BlogCommentMapper.INSTANCE.fromDTOToDAO(blogCommentDTO));
-        logger.info("User with id: {} commented on the blog with id: {}", userInfoDTO.getUserId(), blogDTO.getBlogId());
+        log.info("User with id: {} commented on the blog with id: {}", userInfoDTO.getUserId(), blogDTO.getBlogId());
 
         return BlogCommentMapper.INSTANCE.fromDAOToDTO(blogCommentDAO);
     }
@@ -66,8 +65,8 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     @Override
     public List<BlogCommentDTO> getAllCommentsByBlog(Integer id) {
         List<BlogCommentDAO> blogCommentDAOList = blogCommentRepository.findAllByBlogDAO_BlogId(id);
-        if(blogCommentDAOList.isEmpty()) logger.warn("Comments" + AppConstants.NO_RECORDS_FOUND);
-        else logger.info("{} comments found", blogCommentDAOList.size());
+        if(blogCommentDAOList.isEmpty()) log.warn("Comments" + AppConstants.NO_RECORDS_FOUND);
+        else log.info("{} comments found", blogCommentDAOList.size());
         return BlogCommentMapper.INSTANCE.fromDAOListToDTOList(blogCommentDAOList);
     }
 
@@ -75,10 +74,10 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     @Override
     public void deleteComment(Integer id) {
         if(!blogCommentRepository.existsById(id)){
-            logger.error("Comment" + AppConstants.NOT_FOUND + "{}", id);
+            log.error("Comment" + AppConstants.NOT_FOUND + "{}", id);
             throw new ResourceNotFoundException("Comment" + AppConstants.NOT_FOUND + "{}" + id);
         }
         blogCommentRepository.deleteById(id);
-        logger.info("Comment" + AppConstants.DELETED + "{}", id);
+        log.info("Comment" + AppConstants.DELETED + "{}", id);
     }
 }

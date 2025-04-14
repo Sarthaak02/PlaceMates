@@ -10,16 +10,15 @@ import com.placemates.repository.company.CompanyBranchLocationRepository;
 import com.placemates.repository.company.CompanyRepository;
 import com.placemates.util.mapper.common.BranchMapper;
 import com.placemates.util.mapper.common.LocationMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationService{
-    private static final Logger logger = LoggerFactory.getLogger(CompanyBranchLocationServiceImpl.class);
     private final CompanyBranchLocationRepository companyBranchLocationRepository;
     private final CompanyRepository companyRepository;
 
@@ -31,7 +30,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     @Override
     public List<BranchDTO> saveAllBranchesByCompany(List<BranchDTO> branchDTOList, Integer companyId) {
         CompanyDAO companyDAO = companyRepository.findById(companyId).orElseThrow( () -> {
-            logger.error("Company" + AppConstants.NOT_FOUND + "{}", companyId);
+            log.error("Company" + AppConstants.NOT_FOUND + "{}", companyId);
             return new ResourceNotFoundException("Company" + AppConstants.NOT_FOUND + companyId);
         });
 
@@ -41,14 +40,14 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
             companyBranchLocationDAO.setBranchDAO(BranchMapper.INSTANCE.fromDTOToDAO(branchDTO));
             companyBranchLocationRepository.save(companyBranchLocationDAO);
         }
-        logger.info("Company created with {} branches", branchDTOList.size());
+        log.info("Company created with {} branches", branchDTOList.size());
         return branchDTOList;
     }
 
     @Override
     public List<LocationDTO> saveAllLocationsByCompany(List<LocationDTO> locationDTOList, Integer companyId) {
         CompanyDAO companyDAO = companyRepository.findById(companyId).orElseThrow( () -> {
-            logger.error("Company" + AppConstants.NOT_FOUND + "{}", companyId);
+            log.error("Company" + AppConstants.NOT_FOUND + "{}", companyId);
             return new ResourceNotFoundException("Company" + AppConstants.NOT_FOUND + companyId);
         });
 
@@ -58,7 +57,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
             companyBranchLocationDAO.setLocationDAO(LocationMapper.INSTANCE.fromDTOToDAO(locationDTO));
             companyBranchLocationRepository.save(companyBranchLocationDAO);
         }
-        logger.info("Company created with {} locations", locationDTOList.size());
+        log.info("Company created with {} locations", locationDTOList.size());
         return locationDTOList;
     }
 
@@ -71,7 +70,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
                 if(companyBranchLocationDAO.getBranchDAO() != null) branchDTOList.add(BranchMapper.INSTANCE.fromDAOToDTO(companyBranchLocationDAO.getBranchDAO()));
             }
         }
-        logger.info("Company found with {} branches", branchDTOList.size());
+        log.info("Company found with {} branches", branchDTOList.size());
         return branchDTOList;
     }
 
@@ -84,7 +83,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
                 if(companyBranchLocationDAO.getLocationDAO() != null) locationDTOList.add(LocationMapper.INSTANCE.fromDAOToDTO(companyBranchLocationDAO.getLocationDAO()));
             }
         }
-        logger.info("Company found with {} locations", locationDTOList.size());
+        log.info("Company found with {} locations", locationDTOList.size());
         return locationDTOList;
     }
 
