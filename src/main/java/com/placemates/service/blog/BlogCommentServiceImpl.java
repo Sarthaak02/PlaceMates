@@ -75,7 +75,7 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     public void deleteComment(Integer id) {
         if(!blogCommentRepository.existsById(id)){
             log.error("Comment" + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException("Comment" + AppConstants.NOT_FOUND + "{}" + id);
+            throw new ResourceNotFoundException("Comment" + AppConstants.NOT_FOUND + id);
         }
         blogCommentRepository.deleteById(id);
         log.info("Comment" + AppConstants.DELETED + "{}", id);

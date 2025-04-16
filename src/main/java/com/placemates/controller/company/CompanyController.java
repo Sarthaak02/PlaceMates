@@ -3,6 +3,8 @@ package com.placemates.controller.company;
 import com.placemates.dto.company.CompanyDTO;
 import com.placemates.service.company.CompanyService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +20,32 @@ public class CompanyController {
     }
 
     @PostMapping("/create")
-    public CompanyDTO createCompany(@Valid @RequestBody CompanyDTO companyDTO){
-        return companyService.createCompany(companyDTO);
+    public ResponseEntity<CompanyDTO> createCompany(@Valid @RequestBody CompanyDTO companyDTO){
+        CompanyDTO newCompanyDTO = companyService.createCompany(companyDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newCompanyDTO);
     }
 
     @GetMapping("/{id}")
-    public CompanyDTO getCompany(@PathVariable Integer id){
-        return companyService.getCompany(id);
+    public ResponseEntity<CompanyDTO> getCompany(@PathVariable Integer id){
+        CompanyDTO companyDTO = companyService.getCompany(id);
+        return ResponseEntity.status(HttpStatus.OK).body(companyDTO);
     }
 
-    @GetMapping("")
-    public List<CompanyDTO> getAllCompanies(){
-        return companyService.getAllCompanies();
+    @GetMapping
+    public ResponseEntity<List<CompanyDTO>> getAllCompanies(){
+        List<CompanyDTO> companyDTOList = companyService.getAllCompanies();
+        return ResponseEntity.status(HttpStatus.OK).body(companyDTOList);
     }
 
     @PutMapping("/{id}")
-    public CompanyDTO updateCompany(@PathVariable Integer id, @Valid @RequestBody CompanyDTO companyDTO){
-        return companyService.updateCompany(id,companyDTO);
+    public ResponseEntity<CompanyDTO> updateCompany(@PathVariable Integer id, @Valid @RequestBody CompanyDTO companyDTO){
+        CompanyDTO updatedCompany = companyService.updateCompany(id,companyDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedCompany);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCompany(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteCompany(@PathVariable Integer id){
         companyService.deleteCompany(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

@@ -3,6 +3,8 @@ package com.placemates.controller.user;
 import com.placemates.dto.user.UserDTO;
 import com.placemates.service.user.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +20,32 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    UserDTO registerUser(@Valid @RequestBody UserDTO userDTO){
-        return userService.createUser(userDTO);
+    public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody UserDTO userDTO){
+        UserDTO newUserDTO = userService.createUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUserDTO);
     }
 
     @GetMapping("/{id}")
-    UserDTO getUser(@PathVariable Integer id){
-        return userService.getUser(id);
+    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
+        UserDTO userDTO = userService.getUser(id);
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 
-    @GetMapping("")
-    List<UserDTO> getUsers(){
-        return userService.getAllUsers();
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getUsers(){
+        List<UserDTO> userDTOList = userService.getAllUsers();
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOList);
     }
 
     @PutMapping("/{id}")
-    UserDTO updateUser(@PathVariable Integer id, @Valid @RequestBody UserDTO userDTO){
-        return userService.updateUser(id, userDTO);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @Valid @RequestBody UserDTO userDTO){
+        UserDTO updatedUserDTO = userService.updateUser(id, userDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedUserDTO);
     }
 
     @DeleteMapping("/{id}")
-    void deleteUser(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
         userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

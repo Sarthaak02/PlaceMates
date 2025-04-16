@@ -7,6 +7,8 @@ import com.placemates.service.blog.BlogCommentService;
 import com.placemates.service.blog.BlogLikeService;
 import com.placemates.service.blog.BlogService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,47 +28,57 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    public BlogDTO createBlog(@Valid @RequestBody BlogDTO blogDTO){
-        return blogService.createBlog(blogDTO);
+    public ResponseEntity<BlogDTO> createBlog(@Valid @RequestBody BlogDTO blogDTO){
+        BlogDTO newBlogDTO = blogService.createBlog(blogDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newBlogDTO);
     }
 
     @GetMapping("/{id}")
-    public BlogDTO getBlog(@PathVariable Integer id){
-        return blogService.getBlog(id);
+    public ResponseEntity<BlogDTO> getBlog(@PathVariable Integer id){
+        BlogDTO blogDTO = blogService.getBlog(id);
+        return ResponseEntity.status(HttpStatus.OK).body(blogDTO);
     }
 
-    @GetMapping("")
-    public List<BlogDTO> getAllBlogs(){
-        return blogService.getAllBlogs();
+    @GetMapping
+    public ResponseEntity<List<BlogDTO>> getAllBlogs(){
+        List<BlogDTO> blogDTOList = blogService.getAllBlogs();
+        return ResponseEntity.status(HttpStatus.OK).body(blogDTOList);
     }
 
     @PutMapping("/{id}")
-    public BlogDTO updateBlog(@PathVariable Integer id,@Valid @RequestBody BlogDTO blogDTO){
-        return blogService.updateBlog(id,blogDTO);
+    public ResponseEntity<BlogDTO> updateBlog(@PathVariable Integer id,@Valid @RequestBody BlogDTO blogDTO){
+        BlogDTO updatedBlog = blogService.updateBlog(id,blogDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedBlog);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBlog(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteBlog(@PathVariable Integer id){
         blogService.deleteBlog(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("like/user/{userId}/blog/{blogId}")
-    public BlogLikeDTO likeBlog(@PathVariable Integer userId, @PathVariable Integer blogId){
-        return blogLikeService.createLikeByUserAndBlog(userId, blogId);
+    public ResponseEntity<BlogLikeDTO> likeBlog(@PathVariable Integer userId, @PathVariable Integer blogId){
+        BlogLikeDTO newBlogLikeDTO = blogLikeService.createLikeByUserAndBlog(userId, blogId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newBlogLikeDTO);
     }
 
     @DeleteMapping("like/user/{userId}/blog/{blogId}")
-    public void unlikeBlog(@PathVariable Integer userId, @PathVariable Integer blogId){
+    public ResponseEntity<Void> unlikeBlog(@PathVariable Integer userId, @PathVariable Integer blogId){
         blogLikeService.deleteLikeByUserAndBlog(userId,blogId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("comment/user/{userId}/blog/{blogId}")
-    public BlogCommentDTO addCommentOnBlog(@PathVariable Integer userId, @PathVariable Integer blogId, @Valid @RequestBody String content){
-        return blogCommentService.createCommentByUserAndBlog(userId, blogId, content);
+    public ResponseEntity<BlogCommentDTO> addCommentOnBlog(@PathVariable Integer userId, @PathVariable Integer blogId, @Valid @RequestBody String content){
+//        Hndle that commetn cannot be empty chekck for is it empty or not and also ids can be added in the model so pass model class in body
+        BlogCommentDTO newBlogCommentDTO = blogCommentService.createCommentByUserAndBlog(userId, blogId, content);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newBlogCommentDTO);
     }
 
     @DeleteMapping("comment/{id}")
-    public void deleteCommentOfBlog(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteCommentOfBlog(@PathVariable Integer id){
        blogCommentService.deleteComment(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

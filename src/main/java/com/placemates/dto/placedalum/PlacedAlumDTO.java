@@ -33,7 +33,6 @@ public class PlacedAlumDTO {
     private String mobileNumber;
 
     @Email
-    @NotBlank
     private String mail;
 
     private String linkText;
