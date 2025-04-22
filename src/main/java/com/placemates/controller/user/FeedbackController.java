@@ -25,7 +25,7 @@ public class FeedbackController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newFeedbackDTO);
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<FeedbackDTO>> getAllFeedbacks(){
         List<FeedbackDTO> feedbackDTOList = feedbackService.getAllFeedbacks();
         return ResponseEntity.status(HttpStatus.OK).body(feedbackDTOList);

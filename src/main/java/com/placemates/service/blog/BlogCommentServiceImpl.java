@@ -1,6 +1,5 @@
 package com.placemates.service.blog;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.blog.BlogCommentDAO;
 import com.placemates.dto.blog.BlogCommentDTO;
 import com.placemates.dto.blog.BlogDTO;
@@ -37,15 +36,15 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     public BlogCommentDTO createCommentByUserAndBlog(Integer userId, Integer blogId, String content) {
         UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
             userRepository.findById(userId).orElseThrow(() ->{
-                log.info("User" + AppConstants.NOT_FOUND + "{}", userId);
-                return new ResourceNotFoundException("User" + AppConstants.NOT_FOUND + userId);
+                log.error("User not found with id: {}", userId);
+                return new ResourceNotFoundException("User not found with id: " + userId);
             })
         );
 
         BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(
             blogRepository.findById(blogId).orElseThrow(() -> {
-                log.info("Blog" + AppConstants.NOT_FOUND + "{}", blogId);
-                return new ResourceNotFoundException("Blog" + AppConstants.NOT_FOUND + blogId);
+                log.error("Blog not found with id: {}", blogId);
+                return new ResourceNotFoundException("Blog not found with id:" + blogId);
             })
         );
 
@@ -63,9 +62,9 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     }
 
     @Override
-    public List<BlogCommentDTO> getAllCommentsByBlog(Integer id) {
-        List<BlogCommentDAO> blogCommentDAOList = blogCommentRepository.findAllByBlogDAO_BlogId(id);
-        if(blogCommentDAOList.isEmpty()) log.warn("Comments" + AppConstants.NO_RECORDS_FOUND);
+    public List<BlogCommentDTO> getAllCommentsByBlog(Integer blogId) {
+        List<BlogCommentDAO> blogCommentDAOList = blogCommentRepository.findAllByBlogDAO_BlogId(blogId);
+        if(blogCommentDAOList.isEmpty()) log.warn("Comments for blog with id: {} not found !!!", blogId );
         else log.info("{} comments found", blogCommentDAOList.size());
         return BlogCommentMapper.INSTANCE.fromDAOListToDTOList(blogCommentDAOList);
     }
@@ -74,10 +73,10 @@ public class BlogCommentServiceImpl implements BlogCommentService{
     @Override
     public void deleteComment(Integer id) {
         if(!blogCommentRepository.existsById(id)){
-            log.error("Comment" + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException("Comment" + AppConstants.NOT_FOUND + id);
+            log.error("Comment not found with id: {}", id);
+            throw new ResourceNotFoundException("Comment not found with id: " + id);
         }
         blogCommentRepository.deleteById(id);
-        log.info("Comment" + AppConstants.DELETED + "{}", id);
+        log.info("Comment successfully deleted with id: {}", id);
     }
 }

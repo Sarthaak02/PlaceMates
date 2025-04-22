@@ -37,15 +37,15 @@ public class BlogLikeServiceImpl implements BlogLikeService{
     public BlogLikeDTO createLikeByUserAndBlog(Integer userId, Integer blogId) {
         UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
             userRepository.findById(userId).orElseThrow(() ->{
-                log.info("User" + AppConstants.NOT_FOUND + "{}", userId);
-                return new ResourceNotFoundException("User" + AppConstants.NOT_FOUND + userId);
+                log.error("User not found with id: {}", userId);
+                return new ResourceNotFoundException("User not found with id: " + userId);
             })
         );
 
         BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(
             blogRepository.findById(blogId).orElseThrow(() -> {
-                log.info("Blog" + AppConstants.NOT_FOUND + "{}", blogId);
-                return new ResourceNotFoundException("Blog" + AppConstants.NOT_FOUND + blogId);
+                log.error("Blog not found with id: {}", blogId);
+                return new ResourceNotFoundException("Blog not found with id:" + blogId);
             })
         );
 
@@ -63,9 +63,9 @@ public class BlogLikeServiceImpl implements BlogLikeService{
     }
 
     @Override
-    public List<BlogLikeDTO> getAllLikesByBlog(Integer id) {
-        List<BlogLikeDAO> blogLikeDAOList = blogLikeRepository.findAllByBlogDAO_BlogId(id);
-        if(blogLikeDAOList.isEmpty()) log.warn("Likes" + AppConstants.NO_RECORDS_FOUND);
+    public List<BlogLikeDTO> getAllLikesByBlog(Integer blogId) {
+        List<BlogLikeDAO> blogLikeDAOList = blogLikeRepository.findAllByBlogDAO_BlogId(blogId);
+        if(blogLikeDAOList.isEmpty()) log.warn("Likes for blog with id: {} not found !!!", blogId );
         else log.info("{} likes found", blogLikeDAOList.size());
         return BlogLikeMapper.INSTANCE.fromDAOListToDTOList(blogLikeDAOList);
     }

@@ -1,6 +1,5 @@
 package com.placemates.service.common;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.common.BranchDAO;
 import com.placemates.dto.common.BranchDTO;
 import com.placemates.exception.ResourceAlreadyExistsException;
@@ -17,7 +16,6 @@ import java.util.List;
 public  class BranchServiceImpl implements BranchService {
 
     private final BranchRepository branchRepository;
-    private static final String BRANCH = "Branch";
 
     public BranchServiceImpl(BranchRepository branchRepository) {
         this.branchRepository = branchRepository;
@@ -26,31 +24,31 @@ public  class BranchServiceImpl implements BranchService {
     @Override
     public BranchDTO createBranch(BranchDTO branchDTO) {
         if(branchRepository.findByName(branchDTO.getName()) != null){
-            log.warn(BRANCH + AppConstants.ALREADY_EXISTS + "name: {}", branchDTO.getName());
-            throw new ResourceAlreadyExistsException(BRANCH + AppConstants.ALREADY_EXISTS + "name: " + branchDTO.getName());
+            log.warn("Branch already exists with name: {}", branchDTO.getName());
+            throw new ResourceAlreadyExistsException("Branch already exists with name: " + branchDTO.getName());
         }
         BranchDAO branchDAO = BranchMapper.INSTANCE.fromDTOToDAO(branchDTO);
         branchDAO.setBranchId(null);
         branchDAO = branchRepository.save(branchDAO);
-        log.info(BRANCH + AppConstants.CREATED + "{}", branchDAO.getBranchId());
+        log.info("Branch successfully created with id: {}", branchDAO.getBranchId());
         return BranchMapper.INSTANCE.fromDAOToDTO(branchDAO);
     }
 
     @Override
     public BranchDTO getBranch(Integer id) {
         BranchDAO branchDAO = branchRepository.findById(id).orElseThrow( () -> {
-            log.error(BRANCH + AppConstants.NOT_FOUND + "{} ",id);
-            return new ResourceNotFoundException(BRANCH + AppConstants.NOT_FOUND + id);
+            log.error("Branch not found with id: {}", id);
+            return new ResourceNotFoundException("Branch not found with id:" + id);
         });
         BranchDTO branchDTO = BranchMapper.INSTANCE.fromDAOToDTO(branchDAO);
-        log.info(BRANCH + AppConstants.FOUND + "{}", id);
+        log.info("Branch found with id: {}",id);
         return branchDTO;
     }
 
     @Override
     public List<BranchDTO> getAllBranches() {
         List<BranchDAO> branchDAOList = branchRepository.findAll();
-        if(branchDAOList.isEmpty()) log.warn("Branches" + AppConstants.NO_RECORDS_FOUND);
+        if(branchDAOList.isEmpty()) log.warn("Branches not found !!!");
         else log.info("{} branches found", branchDAOList.size());
         return BranchMapper.INSTANCE.fromDAOListToDTOList(branchDAOList);
     }
@@ -58,27 +56,27 @@ public  class BranchServiceImpl implements BranchService {
     @Override
     public BranchDTO updateBranch(Integer id, BranchDTO branchDTO) {
         if(!branchRepository.existsById(id)){
-            log.error(BRANCH + AppConstants.NOT_FOUND + "{} ",id);
-            throw new ResourceNotFoundException(BRANCH + AppConstants.NOT_FOUND + id);
+            log.error("Branch not found with id: {}", id);
+            throw new ResourceNotFoundException("Branch not found with id:" + id);
         }
         if(branchRepository.findByName(branchDTO.getName()) != null && branchRepository.findByName(branchDTO.getName()).getBranchId() != id){
-            log.warn(BRANCH + AppConstants.ALREADY_EXISTS + "name: {}", branchDTO.getName());
-            throw new ResourceAlreadyExistsException(BRANCH + AppConstants.ALREADY_EXISTS + "name: " + branchDTO.getName());
+            log.warn("Branch already exists with name: {}", branchDTO.getName());
+            throw new ResourceAlreadyExistsException("Branch already exists with name: " + branchDTO.getName());
         }
         BranchDAO branchDAO = BranchMapper.INSTANCE.fromDTOToDAO(branchDTO);
         branchDAO.setBranchId(id);
         branchRepository.save(branchDAO);
-        log.info(BRANCH + AppConstants.UPDATED + "{}", branchDAO.getBranchId());
+        log.info("Branch successfully updated with id: {}", branchDAO.getBranchId());
         return BranchMapper.INSTANCE.fromDAOToDTO(branchDAO);
     }
 
     @Override
     public void deleteBranch(Integer id) {
         if(!branchRepository.existsById(id)){
-            log.error(BRANCH + AppConstants.NOT_FOUND + "{} ",id);
-            throw new ResourceNotFoundException(BRANCH + AppConstants.NOT_FOUND + id);
+            log.error("Branch not found with id: {}", id);
+            throw new ResourceNotFoundException("Branch not found with id:" + id);
         }
         branchRepository.deleteById(id);
-        log.info(BRANCH + AppConstants.DELETED + "{}", id);
+        log.info("Branch successfully deleted with id: {}", id);
     }
 }

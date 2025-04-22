@@ -1,6 +1,5 @@
 package com.placemates.service.user;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.user.FeedbackDAO;
 import com.placemates.dto.user.FeedbackDTO;
 import com.placemates.repository.user.FeedbackRepository;
@@ -25,15 +24,15 @@ public class FeedbackServiceImpl implements FeedbackService{
         FeedbackDAO feedbackDAO = FeedbackMapper.INSTANCE.fromDTOToDAO(feedbackDTO);
         feedbackDAO.setFeedBackId(null);
         feedbackDAO = feedbackRepository.save(feedbackDAO);
-        log.info("Feedback" + AppConstants.CREATED + "{}", feedbackDAO.getFeedBackId());
+        log.info("Feedback successfully created with id: {}", feedbackDAO.getFeedBackId());
         return FeedbackMapper.INSTANCE.fromDAOToDTO(feedbackDAO);
     }
 
     @Override
     public List<FeedbackDTO> getAllFeedbacks() {
         List<FeedbackDAO> feedbackDAOList = feedbackRepository.findAll();
-        if(feedbackDAOList.isEmpty()) log.warn("Feedbacks" + AppConstants.NO_RECORDS_FOUND);
-        else log.info("{} Feedbacks" + AppConstants.RECORDS_FOUND, feedbackDAOList.size());
+        if(feedbackDAOList.isEmpty()) log.warn("Feedbacks not found !!!");
+        else log.info("{} feedbacks found", feedbackDAOList.size());
         return FeedbackMapper.INSTANCE.fromDAOListToDTOList(feedbackDAOList);
     }
 }

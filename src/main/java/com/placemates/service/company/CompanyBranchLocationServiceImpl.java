@@ -1,6 +1,5 @@
 package com.placemates.service.company;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.company.CompanyBranchLocationDAO;
 import com.placemates.dao.company.CompanyDAO;
 import com.placemates.dto.common.BranchDTO;
@@ -30,8 +29,8 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     @Override
     public List<BranchDTO> saveAllBranchesByCompany(List<BranchDTO> branchDTOList, Integer companyId) {
         CompanyDAO companyDAO = companyRepository.findById(companyId).orElseThrow( () -> {
-            log.error("Company" + AppConstants.NOT_FOUND + "{}", companyId);
-            return new ResourceNotFoundException("Company" + AppConstants.NOT_FOUND + companyId);
+            log.error("Company not found with id: {}", companyId);
+            return new ResourceNotFoundException("Company not found with id:" + companyId);
         });
 
         for(BranchDTO branchDTO : branchDTOList){
@@ -47,8 +46,8 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
     @Override
     public List<LocationDTO> saveAllLocationsByCompany(List<LocationDTO> locationDTOList, Integer companyId) {
         CompanyDAO companyDAO = companyRepository.findById(companyId).orElseThrow( () -> {
-            log.error("Company" + AppConstants.NOT_FOUND + "{}", companyId);
-            return new ResourceNotFoundException("Company" + AppConstants.NOT_FOUND + companyId);
+            log.error("Company not found with id: {}", companyId);
+            return new ResourceNotFoundException("Company not found with id:" + companyId);
         });
 
         for(LocationDTO locationDTO : locationDTOList){

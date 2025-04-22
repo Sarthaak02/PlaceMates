@@ -1,6 +1,5 @@
 package com.placemates.service.company;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.company.CompanyDAO;
 import com.placemates.dao.placedalum.PlacedAlumDAO;
 import com.placemates.dto.common.BranchDTO;
@@ -22,7 +21,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class CompanyServiceImpl implements CompanyService{
-    private static final String COMPANY = "Company";
 
     private final CompanyRepository companyRepository;
     private final CompanyBranchLocationService companyBranchLocationService;
@@ -38,13 +36,13 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public CompanyDTO createCompany(CompanyDTO companyDTO) {
         if(companyRepository.findByName(companyDTO.getName()) != null){
-            log.warn(COMPANY + AppConstants.ALREADY_EXISTS + "name: {}", companyDTO.getName());
-            throw new ResourceAlreadyExistsException(COMPANY + AppConstants.ALREADY_EXISTS + "name: " + companyDTO.getName());
+            log.warn("Company already exists with name: {}", companyDTO.getName());
+            throw new ResourceAlreadyExistsException("Company already exists with name: " + companyDTO.getName());
         }
         CompanyDAO companyDAO = CompanyMapper.INSTANCE.fromDTOToDAO(companyDTO);
         companyDAO.setCompanyId(null);
         companyDAO = companyRepository.save(companyDAO);
-        log.info(COMPANY + AppConstants.CREATED + "{}", companyDAO.getCompanyId());
+        log.info("Company successfully created with id: {}", companyDAO.getCompanyId());
 
         List<BranchDTO> branchDTOList = new ArrayList<>();
         if (companyDTO.getBranchDTOList() != null && !companyDTO.getBranchDTOList().isEmpty()) {
@@ -66,10 +64,10 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public CompanyDTO getCompany(Integer id) {
         CompanyDAO companyDAO = companyRepository.findById(id).orElseThrow( () -> {
-            log.error(COMPANY + AppConstants.NOT_FOUND + "{}", id);
-            return new ResourceNotFoundException(COMPANY + AppConstants.NOT_FOUND + id);
+            log.error("Company not found with id: {}", id);
+            return new ResourceNotFoundException("Company not found with id:" + id);
         });
-        log.info(COMPANY + AppConstants.FOUND + "{}",id);
+        log.info("Company found with id: {}",id);
 
         CompanyDTO companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);
 
@@ -90,9 +88,9 @@ public class CompanyServiceImpl implements CompanyService{
         List<CompanyDAO> companyDAOList = companyRepository.findAll();
 
         List<CompanyDTO> companyDTOList = CompanyMapper.INSTANCE.fromDAOListToDTOList(companyDAOList);
-        if(companyDAOList.isEmpty()) log.warn("Companies" + AppConstants.NO_RECORDS_FOUND);
+        if(companyDAOList.isEmpty()) log.warn("Companies not found !!!");
         else{
-            log.info("{} companies" + AppConstants.RECORDS_FOUND, companyDAOList.size());
+            log.info("{} companies found", companyDAOList.size());
             /*for(CompanyDTO companyDTO : companyDTOList){
                 List<BranchDTO> branchDTOList = companyBranchLocationService.getAllBranchesByCompany(companyDTO.getCompanyId());
                 companyDTO.setBranchDTOList(branchDTOList);
@@ -107,17 +105,17 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public CompanyDTO updateCompany(Integer id, CompanyDTO companyDTO) {
         if(!companyRepository.existsById(id)){
-            log.error(COMPANY + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(COMPANY + AppConstants.NOT_FOUND + id);
+            log.error("Company not found with id: {}", id);
+            throw new ResourceNotFoundException("Company not found with id:" + id);
         }
         if(companyRepository.findByName(companyDTO.getName()) != null && companyRepository.findByName(companyDTO.getName()).getCompanyId() != id){
-            log.warn(COMPANY + AppConstants.ALREADY_EXISTS + "name: {}", companyDTO.getName());
-            throw new ResourceAlreadyExistsException(COMPANY + AppConstants.ALREADY_EXISTS + "name: " + companyDTO.getName());
+            log.warn("Company already exists with name: {}", companyDTO.getName());
+            throw new ResourceAlreadyExistsException("Company already exists with name: " + companyDTO.getName());
         }
         CompanyDAO companyDAO = CompanyMapper.INSTANCE.fromDTOToDAO(companyDTO);
         companyDAO.setCompanyId(id);
         companyRepository.save(companyDAO);
-        log.info(COMPANY + AppConstants.UPDATED + "{}", id);
+        log.info("Company successfully updated with id: {}", id);
 
         companyBranchLocationService.deleteAllByCompany(id);
 
@@ -141,10 +139,10 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public void deleteCompany(Integer id) {
         if(!companyRepository.existsById(id)){
-            log.error(COMPANY + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(COMPANY + AppConstants.NOT_FOUND + id);
+            log.error("Company not found with id: {}", id);
+            throw new ResourceNotFoundException("Company not found with id:" + id);
         }
         companyRepository.deleteById(id);
-        log.info(COMPANY + AppConstants.DELETED + "{}", id);
+        log.info("Company successfully deleted with id: {}", id);
     }
 }

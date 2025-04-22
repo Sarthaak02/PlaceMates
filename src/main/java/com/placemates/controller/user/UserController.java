@@ -19,12 +19,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody UserDTO userDTO){
-        UserDTO newUserDTO = userService.createUser(userDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUserDTO);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
         UserDTO userDTO = userService.getUser(id);

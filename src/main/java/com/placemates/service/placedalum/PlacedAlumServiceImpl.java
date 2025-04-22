@@ -1,6 +1,5 @@
 package com.placemates.service.placedalum;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.placedalum.PlacedAlumDAO;
 import com.placemates.dto.placedalum.PlacedAlumDTO;
 import com.placemates.exception.ResourceAlreadyExistsException;
@@ -17,7 +16,6 @@ import java.util.List;
 public class PlacedAlumServiceImpl implements PlacedAlumService {
 
     private final PlacedAlumRepository placedAlumRepository;
-    private static final String PLACED_ALUM = "Placed alum";
 
     public PlacedAlumServiceImpl(PlacedAlumRepository placedAlumRepository) {
         this.placedAlumRepository = placedAlumRepository;
@@ -26,28 +24,28 @@ public class PlacedAlumServiceImpl implements PlacedAlumService {
     @Override
     public PlacedAlumDTO createPlacedAlum(PlacedAlumDTO placedAlumDTO) {
         if(placedAlumRepository.findByMail(placedAlumDTO.getMail()) != null){
-            log.warn(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mail: {}", placedAlumDTO.getMail());
-            throw new ResourceAlreadyExistsException(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mail: " + placedAlumDTO.getMail());
+            log.warn("Placed alum already exists with email: {}", placedAlumDTO.getMail());
+            throw new ResourceAlreadyExistsException("Placed alum already exists with email:" + placedAlumDTO.getMail());
         }
         if(placedAlumRepository.findByMobileNumber(placedAlumDTO.getMobileNumber()) != null){
-            log.warn(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mobile number: {}", placedAlumDTO.getMobileNumber());
-            throw new ResourceAlreadyExistsException(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mobile number: " + placedAlumDTO.getMobileNumber());
+            log.warn("Placed alum already exists with mobile number: {}", placedAlumDTO.getMobileNumber());
+            throw new ResourceAlreadyExistsException("Placed alum already exists with mobile number: " + placedAlumDTO.getMobileNumber());
         }
 
         PlacedAlumDAO placedAlumDAO = PlacedAlumMapper.INSTANCE.fromDTOToDAO(placedAlumDTO);
         placedAlumDAO.setPlacedAlumId(null);
         placedAlumDAO = placedAlumRepository.save(placedAlumDAO);
-        log.info(PLACED_ALUM + AppConstants.CREATED + "{}", placedAlumDAO.getPlacedAlumId());
+        log.info("Placed alum successfully created with id: {}", placedAlumDAO.getPlacedAlumId());
         return PlacedAlumMapper.INSTANCE.fromDAOToDTO(placedAlumDAO);
     }
 
     @Override
     public PlacedAlumDTO getPlacedAlum(Integer id) {
         PlacedAlumDAO placedAlumDAO = placedAlumRepository.findById(id).orElseThrow(() -> {
-            log.error(PLACED_ALUM + AppConstants.NOT_FOUND + "{}", id);
-            return new ResourceNotFoundException(PLACED_ALUM + AppConstants.NOT_FOUND + id);
+            log.error("Placed alum not found with id: {}", id);
+            return new ResourceNotFoundException("Placed alum not found with id: " + id);
         });
-        log.info(PLACED_ALUM + AppConstants.FOUND + "{}",id);
+        log.info("Placed alum found with id: {}", placedAlumDAO.getPlacedAlumId());
         return PlacedAlumMapper.INSTANCE.fromDAOToDTO(placedAlumDAO);
     }
 
@@ -55,8 +53,8 @@ public class PlacedAlumServiceImpl implements PlacedAlumService {
     public List<PlacedAlumDTO> getAllPlacedAlums() {
         List<PlacedAlumDAO> placedAlumDAOList = placedAlumRepository.findAll();
 
-        if(placedAlumDAOList.isEmpty()) log.warn("Placed Alums" + AppConstants.NO_RECORDS_FOUND);
-        else log.info("{} Placed alums" + AppConstants.RECORDS_FOUND, placedAlumDAOList.size());
+        if(placedAlumDAOList.isEmpty()) log.warn("Placed Alums not found !!!");
+        else log.info("{} placed alums found", placedAlumDAOList.size());
 
         return PlacedAlumMapper.INSTANCE.fromDAOListToDTOList(placedAlumDAOList);
     }
@@ -64,34 +62,34 @@ public class PlacedAlumServiceImpl implements PlacedAlumService {
     @Override
     public PlacedAlumDTO updatePlacedAlum(Integer id, PlacedAlumDTO placedAlumDTO) {
         if(!placedAlumRepository.existsById(id)){
-            log.error(PLACED_ALUM + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(PLACED_ALUM + AppConstants.NOT_FOUND + id);
+            log.error("Placed alum not found with id: {}", id);
+            throw new ResourceNotFoundException("Placed alum not found with id: " + id);
         }
 
         if(placedAlumRepository.findByMail(placedAlumDTO.getMail()) != null && placedAlumRepository.findByMail(placedAlumDTO.getMail()).getPlacedAlumId() != id){
-            log.warn(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mail: {}", placedAlumDTO.getMail());
-            throw new ResourceAlreadyExistsException(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mail: " + placedAlumDTO.getMail());
+            log.warn("Placed alum already exists with email: {}", placedAlumDTO.getMail());
+            throw new ResourceAlreadyExistsException("Placed alum already exists with email:" + placedAlumDTO.getMail());
         }
 
         if(placedAlumRepository.findByMobileNumber(placedAlumDTO.getMobileNumber()) != null && placedAlumRepository.findByMobileNumber(placedAlumDTO.getMobileNumber()).getPlacedAlumId() != id){
-            log.warn(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mobile number: {}", placedAlumDTO.getMobileNumber());
-            throw new ResourceAlreadyExistsException(PLACED_ALUM + AppConstants.ALREADY_EXISTS + "mobile number: " + placedAlumDTO.getMobileNumber());
+            log.warn("Placed alum already exists with mobile number: {}", placedAlumDTO.getMobileNumber());
+            throw new ResourceAlreadyExistsException("Placed alum already exists with mobile number: " + placedAlumDTO.getMobileNumber());
         }
 
         PlacedAlumDAO placedAlumDAO = PlacedAlumMapper.INSTANCE.fromDTOToDAO(placedAlumDTO);
         placedAlumDAO.setPlacedAlumId(id);
         placedAlumDAO = placedAlumRepository.save(placedAlumDAO);
-        log.info( PLACED_ALUM + AppConstants.UPDATED + "{}", placedAlumDAO.getPlacedAlumId());
+        log.info("Placed alum successfully updated with id: {}", placedAlumDAO.getPlacedAlumId());
         return PlacedAlumMapper.INSTANCE.fromDAOToDTO(placedAlumDAO);
     }
 
     @Override
     public void deletePlacedAlum(Integer id) {
         if(!placedAlumRepository.existsById(id)){
-            log.error(PLACED_ALUM + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(PLACED_ALUM + AppConstants.NOT_FOUND + id);
+            log.error("Placed alum not found with id: {}", id);
+            throw new ResourceNotFoundException("Placed alum not found with id: " + id);
         }
         placedAlumRepository.deleteById(id);
-        log.info(PLACED_ALUM + AppConstants.DELETED + "{}", id);
+        log.info("Placed alum successfully deleted with id: {}", id);
     }
 }

@@ -1,6 +1,5 @@
 package com.placemates.service.common;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.common.LocationDAO;
 import com.placemates.dto.common.LocationDTO;
 import com.placemates.exception.ResourceAlreadyExistsException;
@@ -16,7 +15,6 @@ import java.util.List;
 @Slf4j
 public class LocationServiceImpl implements LocationService {
 
-    private static final String LOCATION = "Location";
     private final LocationRepository locationRepository;
 
     public LocationServiceImpl(LocationRepository locationRepository) {
@@ -26,59 +24,59 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public LocationDTO createLocation(LocationDTO locationDTO) {
         if (locationRepository.findByCity(locationDTO.getCity()) != null) {
-            log.warn(LOCATION + AppConstants.ALREADY_EXISTS + "city: {}", locationDTO.getCity());
-            throw new ResourceAlreadyExistsException(LOCATION + AppConstants.ALREADY_EXISTS + "city: " + locationDTO.getCity());
+            log.warn("Location already exists with city: {}", locationDTO.getCity());
+            throw new ResourceAlreadyExistsException("Location already exists with city: " + locationDTO.getCity());
         }
         LocationDAO locationDAO = LocationMapper.INSTANCE.fromDTOToDAO(locationDTO);
         locationDAO.setLocationId(null);
         locationDAO = locationRepository.save(locationDAO);
-        log.info(LOCATION + AppConstants.CREATED + "{}", locationDAO.getLocationId());
+        log.info("Location successfully created with id: {}", locationDAO.getLocationId());
         return LocationMapper.INSTANCE.fromDAOToDTO(locationDAO);
     }
 
     @Override
     public LocationDTO getLocation(Integer id) {
         LocationDAO locationDAO = locationRepository.findById(id).orElseThrow(() -> {
-            log.error(LOCATION + AppConstants.NOT_FOUND + "{}", id);
-            return new ResourceNotFoundException(LOCATION + AppConstants.NOT_FOUND + id);
+            log.error("Location not found with id: {}", id);
+            return new ResourceNotFoundException("Location not found with id: " + id);
         });
         LocationDTO locationDTO = LocationMapper.INSTANCE.fromDAOToDTO(locationDAO);
-        log.info(LOCATION + AppConstants.FOUND + "{}",id);
+        log.info("Location found with id: {}",id);
         return locationDTO;
     }
 
     @Override
     public List<LocationDTO> getAllLocations() {
         List<LocationDAO> locationDAOList = locationRepository.findAll();
-        if (locationDAOList.isEmpty()) log.warn("Locations" + AppConstants.NO_RECORDS_FOUND);
-        else log.info("{} locations" + AppConstants.RECORDS_FOUND, locationDAOList.size());
+        if (locationDAOList.isEmpty()) log.warn("Locations not found !!!");
+        else log.info("{} locations found", locationDAOList.size());
         return LocationMapper.INSTANCE.fromDAOListToDTOList(locationDAOList);
     }
 
     @Override
     public LocationDTO updateLocation(Integer id, LocationDTO locationDTO) {
         if (!locationRepository.existsById(id)) {
-            log.error(LOCATION + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(LOCATION + AppConstants.NOT_FOUND + id);
+            log.error("Location not found with id: {}", id);
+            throw new ResourceNotFoundException("Location not found with id: " + id);
         }
         if (locationRepository.findByCity(locationDTO.getCity()) != null && locationRepository.findByCity(locationDTO.getCity()).getLocationId() != id) {
-            log.warn(LOCATION + AppConstants.ALREADY_EXISTS + "city: {}", locationDTO.getCity());
-            throw new ResourceAlreadyExistsException(LOCATION + AppConstants.ALREADY_EXISTS + "city: " + locationDTO.getCity());
+            log.warn("Location already exists with city: {}", locationDTO.getCity());
+            throw new ResourceAlreadyExistsException("Location already exists with city: " + locationDTO.getCity());
         }
         LocationDAO locationDAO = LocationMapper.INSTANCE.fromDTOToDAO(locationDTO);
         locationDAO.setLocationId(id);
         locationRepository.save(locationDAO);
-        log.info(LOCATION + AppConstants.UPDATED + "{}", locationDAO.getLocationId());
+        log.info("Location successfully updated with id: {}", locationDAO.getLocationId());
         return LocationMapper.INSTANCE.fromDAOToDTO(locationDAO);
     }
 
     @Override
     public void deleteLocation(Integer id) {
         if (!locationRepository.existsById(id)) {
-            log.error(LOCATION + AppConstants.NOT_FOUND + "{}", id);
-            throw new ResourceNotFoundException(LOCATION + AppConstants.NOT_FOUND + id);
+            log.error("Location not found with id: {}", id);
+            throw new ResourceNotFoundException("Location not found with id: " + id);
         }
         locationRepository.deleteById(id);
-        log.info(LOCATION + AppConstants.DELETED + "{}", id);
+        log.info("Location successfully deleted  with id: {}", id);
     }
 }
