@@ -21,7 +21,7 @@ public class PlacedAlumDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PA_ID")
+    @Column(name = "PLACED_ALUM_ID")
     private Integer placedAlumId;
 
     @Column(name = "FIRST_NAME")
@@ -36,13 +36,13 @@ public class PlacedAlumDAO {
     @Column(name = "CTC")
     private BigDecimal ctc;
 
-    @Column(name = "MOB_NO")
+    @Column(name = "MOBILE_NUMBER")
     private String mobileNumber;
 
     @Column(name = "MAIL")
     private String mail;
 
-    @Column(name = "LINK_TXT")
+    @Column(name = "LINK_TEXT")
     private String linkText;
 
     @Column(name = "LINK")
@@ -53,16 +53,17 @@ public class PlacedAlumDAO {
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "BR_ID")
+    @JoinColumn(name = "BRANCH_ID")
     private BranchDAO branchDAO;
 
-    private Integer batch;
+    @Column(name = "BATCH_YEAR")
+    private Integer batchYear;
 
     @ManyToOne
-    @JoinColumn(name = "CMP_ID")
+    @JoinColumn(name = "COMPANY_ID")
     private CompanyDAO companyDAO;
 
     @ManyToOne
-    @JoinColumn(name = "IMG_ID")
+    @JoinColumn(name = "IMAGE_ID")
     private ImageDAO imageDAO;
 }

@@ -29,7 +29,7 @@ public class CompanyDTO {
     private String jobDescription;
     private ImageDTO imageDTO;
 
-    private List<PlacedAlumDTO> placedAlumDTOList;
-    private List<BranchDTO> branchDTOList;
-    private List<LocationDTO> locationDTOList;
+    private List<PlacedAlumDTO> placedAlumDTOs;
+    private List<BranchDTO> branchDTOs;
+    private List<LocationDTO> locationDTOs;
 }

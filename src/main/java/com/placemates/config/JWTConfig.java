@@ -1,13 +1,10 @@
 package com.placemates.config;
 
-import com.placemates.dto.security.AuthUserDetails;
-import com.placemates.service.security.AuthServiceImpl;
 import com.placemates.service.security.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,12 +20,10 @@ public class JWTConfig extends OncePerRequestFilter {
 
     private final JWTService jwtService;
     private final UserDetailsService userDetailsService;
-    private final ApplicationContext applicationContext;
 
-    public JWTConfig(JWTService jwtService, UserDetailsService userDetailsService, ApplicationContext applicationContext) {
+    public JWTConfig(JWTService jwtService, UserDetailsService userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
-        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -44,7 +39,6 @@ public class JWTConfig extends OncePerRequestFilter {
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-//            UserDetails userDetails = applicationContext.getBean(UserDetailsService.class).loadUserByUsername(username);
             if(jwtService.validateToken(token, userDetails)){
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

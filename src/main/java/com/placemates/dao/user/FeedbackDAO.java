@@ -14,7 +14,7 @@ public class FeedbackDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FB_ID")
+    @Column(name = "FEEDBACK_ID")
     private Integer feedBackId;
 
     @ManyToOne

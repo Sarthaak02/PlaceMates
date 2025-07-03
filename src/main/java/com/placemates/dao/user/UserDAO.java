@@ -31,7 +31,7 @@ public class UserDAO {
     @Column(name = "MAIL")
     private String mail;
 
-    @Column(name = "MOB_NO")
+    @Column(name = "MOBILE_NUMBER")
     private String mobileNumber;
 
     @Column(name = "PASSWORD")
@@ -43,7 +43,7 @@ public class UserDAO {
     @Column(name = "DESIGNATION")
     private String designation;
 
-    @Column(name = "LINK_TXT")
+    @Column(name = "LINK_TEXT")
     private String linkText;
 
     @Column(name = "LINK")
@@ -54,13 +54,14 @@ public class UserDAO {
     private Gender gender;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "BR_ID")
+    @JoinColumn(name = "BRANCH_ID")
     private BranchDAO branchDAO;
 
-    private Integer batch;
+    @Column(name = "BATCH_YEAR")
+    private Integer batchYear;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "LOC_ID")
+    @JoinColumn(name = "LOCATION_ID")
     private LocationDAO locationDAO;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -68,6 +69,6 @@ public class UserDAO {
     private RoleDAO roleDAO;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "IMG_ID")
+    @JoinColumn(name = "IMAGE_ID")
     private ImageDAO imageDAO;
 }

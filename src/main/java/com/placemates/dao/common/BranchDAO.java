@@ -14,7 +14,7 @@ public class BranchDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BR_ID")
+    @Column(name = "BRANCH_ID")
     private Integer branchId;
 
     @Column(name = "NAME")

@@ -47,5 +47,4 @@ public class UserDTO {
     private LocationDTO locationDTO;
     private RoleDTO roleDTO;
     private ImageDTO imageDTO;
-
 }

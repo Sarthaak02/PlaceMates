@@ -28,10 +28,10 @@ public class BlogDTO {
     private String content;
 
     private int likeCount;
-    private List<BlogLikeDTO> blogLikeDTOList;
+    private List<BlogLikeDTO> blogLikeDTOs;
 
     private int commentCount;
-    private List<BlogCommentDTO> blogCommentDTOList;
+    private List<BlogCommentDTO> blogCommentDTOs;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

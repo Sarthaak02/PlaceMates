@@ -8,7 +8,7 @@ public class ImageDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IMG_ID")
+    @Column(name = "IMAGE_ID")
     private Integer imageId;
 
     @Column(name = "NAME")

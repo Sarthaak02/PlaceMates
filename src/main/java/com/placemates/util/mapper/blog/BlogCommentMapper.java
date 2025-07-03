@@ -13,19 +13,19 @@ import java.util.List;
 public interface BlogCommentMapper {
     BlogCommentMapper INSTANCE = Mappers.getMapper(BlogCommentMapper.class);
 
-    @Mapping(source = "commentByDTO", target = "commentByDAO")
+    @Mapping(source = "commentedByDTO", target = "commentedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
     BlogCommentDAO fromDTOToDAO(BlogCommentDTO blogCommentDTO);
 
-    @Mapping(source = "commentByDAO", target = "commentByDTO")
+    @Mapping(source = "commentedByDAO", target = "commentedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
     BlogCommentDTO fromDAOToDTO(BlogCommentDAO blogCommentDAO);
 
-    @Mapping(source = "commentByDTO", target = "commentByDAO")
+    @Mapping(source = "commentedByDTO", target = "commentedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
     List<BlogCommentDAO> fromDTOListToDAOList(List<BlogCommentDTO> blogCommentDTOList);
 
-    @Mapping(source = "commentByDAO", target = "commentByDTO")
+    @Mapping(source = "commentedByDAO", target = "commentedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
     List<BlogCommentDTO> fromDAOListToDTOList(List<BlogCommentDAO> blogCommentDAOList);
 }

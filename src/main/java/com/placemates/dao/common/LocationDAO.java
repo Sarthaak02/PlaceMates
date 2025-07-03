@@ -14,7 +14,7 @@ public class LocationDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LOC_ID")
+    @Column(name = "LOCATION_ID")
     private Integer locationId;
 
     @Column(name = "CITY")

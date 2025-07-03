@@ -52,10 +52,10 @@ public class BlogServiceImpl implements BlogService {
         BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(blogDAO);
 
         List<BlogLikeDTO> blogLikeDTOList = blogLikeService.getAllLikesByBlog(id);
-        blogDTO.setBlogLikeDTOList(blogLikeDTOList);
+        blogDTO.setBlogLikeDTOs(blogLikeDTOList);
 
         List<BlogCommentDTO> blogCommentDTOList = blogCommentService.getAllCommentsByBlog(id);
-        blogDTO.setBlogCommentDTOList(blogCommentDTOList);
+        blogDTO.setBlogCommentDTOs(blogCommentDTOList);
 
         log.info("Blog found with id: {}", id);
 

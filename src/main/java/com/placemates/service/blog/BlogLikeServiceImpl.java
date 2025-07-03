@@ -1,6 +1,5 @@
 package com.placemates.service.blog;
 
-import com.placemates.constant.AppConstants;
 import com.placemates.dao.blog.BlogLikeDAO;
 import com.placemates.dto.blog.BlogDTO;
 import com.placemates.dto.blog.BlogLikeDTO;
@@ -54,7 +53,7 @@ public class BlogLikeServiceImpl implements BlogLikeService{
         LocalDateTime currentDateTime = LocalDateTime.now();
         blogLikeDAO.setLikedAt(currentDateTime);
         blogLikeDAO.setBlogDAO(BlogMapper.INSTANCE.fromDTOToDAO(blogDTO));
-        blogLikeDAO.setLikeByDAO(UserInfoMapper.INSTANCE.fromDTOToDAO(userInfoDTO));
+        blogLikeDAO.setLikedByDAO(UserInfoMapper.INSTANCE.fromDTOToDAO(userInfoDTO));
 
         blogLikeRepository.save(blogLikeDAO);
         log.info("Blog with id: {}, liked by user with id:{}", blogDTO.getBlogId(), userInfoDTO.getUserId());
@@ -73,11 +72,11 @@ public class BlogLikeServiceImpl implements BlogLikeService{
     @Transactional
     @Override
     public void deleteLikeByUserAndBlog(Integer userId, Integer blogId) {
-        if(!blogLikeRepository.existsByLikeByDAO_UserIdAndBlogDAO_BlogId(userId,blogId)){
+        if(!blogLikeRepository.existsByLikedByDAO_UserIdAndBlogDAO_BlogId(userId,blogId)){
             log.error("Like for blog with id: {} by user with id: {} not found", blogId, userId);
             throw new ResourceNotFoundException("Like for blog " + blogId + " by user " + userId + " not found");
         }
-        blogLikeRepository.deleteByLikeByDAO_UserIdAndBlogDAO_BlogId(userId, blogId);
+        blogLikeRepository.deleteByLikedByDAO_UserIdAndBlogDAO_BlogId(userId, blogId);
         log.info("Blog with id: {} unliked by user with id: {}", blogId, userId);
     }
 }

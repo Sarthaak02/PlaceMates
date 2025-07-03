@@ -52,8 +52,8 @@ public class BlogCommentServiceImpl implements BlogCommentService{
         LocalDateTime currentDateTime = LocalDateTime.now();
         blogCommentDTO.setCommentedAt(currentDateTime);
         blogCommentDTO.setBlogDTO(blogDTO);
-        blogCommentDTO.setCommentByDTO(userInfoDTO);
-        blogCommentDTO.setContent(content);
+        blogCommentDTO.setCommentedByDTO(userInfoDTO);
+        blogCommentDTO.setComment(content);
 
         BlogCommentDAO blogCommentDAO = blogCommentRepository.save(BlogCommentMapper.INSTANCE.fromDTOToDAO(blogCommentDTO));
         log.info("User with id: {} commented on the blog with id: {}", userInfoDTO.getUserId(), blogDTO.getBlogId());

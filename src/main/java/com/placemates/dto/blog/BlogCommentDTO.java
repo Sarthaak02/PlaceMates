@@ -17,7 +17,7 @@ public class BlogCommentDTO {
     private Integer commentId;
 
     @NotBlank
-    private String content;
+    private String comment;
 
     @NotNull
     private LocalDateTime commentedAt;
@@ -26,5 +26,5 @@ public class BlogCommentDTO {
     private BlogDTO blogDTO;
 
     @NotNull
-    private UserInfoDTO commentByDTO;
+    private UserInfoDTO commentedByDTO;
 }

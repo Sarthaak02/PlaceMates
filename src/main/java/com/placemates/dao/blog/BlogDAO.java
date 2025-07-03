@@ -48,6 +48,6 @@ public class BlogDAO {
     private UserDAO createdByDAO;
 
     @OneToOne
-    @JoinColumn(name = "IMG_ID")
+    @JoinColumn(name = "IMAGE_ID")
     private ImageDAO imageDAO;
 }

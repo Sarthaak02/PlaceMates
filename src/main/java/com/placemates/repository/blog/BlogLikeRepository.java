@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface BlogLikeRepository extends JpaRepository<BlogLikeDAO,Integer> {
     List<BlogLikeDAO> findAllByBlogDAO_BlogId(Integer id);
-    void deleteByLikeByDAO_UserIdAndBlogDAO_BlogId(Integer userID, Integer blogID);
-    boolean existsByLikeByDAO_UserIdAndBlogDAO_BlogId(Integer userID, Integer blogID);
+    void deleteByLikedByDAO_UserIdAndBlogDAO_BlogId(Integer userID, Integer blogID);
+    boolean existsByLikedByDAO_UserIdAndBlogDAO_BlogId(Integer userID, Integer blogID);
 }

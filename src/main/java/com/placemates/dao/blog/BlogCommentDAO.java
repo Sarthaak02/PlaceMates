@@ -17,11 +17,11 @@ public class BlogCommentDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CMT_ID")
+    @Column(name = "COMMENT_ID")
     private Integer commentId;
 
-    @Column(name = "CONTENT")
-    private String content;
+    @Column(name = "COMMENT")
+    private String comment;
 
     @Column(name = "COMMENTED_AT")
     private LocalDateTime commentedAt;
@@ -31,6 +31,6 @@ public class BlogCommentDAO {
     private BlogDAO blogDAO;
 
     @ManyToOne
-    @JoinColumn(name = "COMMENT_BY")
-    private UserDAO commentByDAO;
+    @JoinColumn(name = "COMMENTED_BY")
+    private UserDAO commentedByDAO;
 }

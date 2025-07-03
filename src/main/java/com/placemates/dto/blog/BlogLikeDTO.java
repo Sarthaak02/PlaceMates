@@ -22,5 +22,5 @@ public class BlogLikeDTO {
     private BlogDTO blogDTO;
 
     @NotNull
-    private UserInfoDTO likeByDTO;
+    private UserInfoDTO likedByDTO;
 }

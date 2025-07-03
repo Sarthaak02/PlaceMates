@@ -14,19 +14,19 @@ import java.util.List;
 public interface BlogLikeMapper {
     BlogLikeMapper INSTANCE = Mappers.getMapper(BlogLikeMapper.class);
 
-    @Mapping(source = "likeByDTO", target = "likeByDAO")
+    @Mapping(source = "likedByDTO", target = "likedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
     BlogLikeDAO fromDTOToDAO(BlogLikeDTO blogLikeDTO);
 
-    @Mapping(source = "likeByDAO", target = "likeByDTO")
+    @Mapping(source = "likedByDAO", target = "likedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
     BlogLikeDTO fromDAOToDTO(BlogLikeDAO blogLikeDAO);
 
-    @Mapping(source = "likeByDTO", target = "likeByDAO")
+    @Mapping(source = "likedByDTO", target = "likedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
     List<BlogLikeDAO> fromDTOListToDAOList(List<BlogLikeDTO> blogLikeDTOList);
 
-    @Mapping(source = "likeByDAO", target = "likeByDTO")
+    @Mapping(source = "likedByDAO", target = "likedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
     List<BlogLikeDTO> fromDAOListToDTOList(List<BlogLikeDAO> blogLikeDAOList);
 }
