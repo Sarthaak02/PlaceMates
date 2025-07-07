@@ -18,20 +18,20 @@ public interface UserMapper {
     @Mapping(source = "branchDTO", target = "branchDAO")
     @Mapping(source = "locationDTO", target = "locationDAO")
     @Mapping(source = "roleDTO", target = "roleDAO")
-    UserDAO fromDTOToDAO(UserDTO userDTO);
+    UserDAO toUserDAO(UserDTO userDTO);
 
     @Mapping(source = "branchDAO", target = "branchDTO")
     @Mapping(source = "locationDAO", target = "locationDTO")
     @Mapping(source = "roleDAO", target = "roleDTO")
-    UserDTO fromDAOToDTO(UserDAO userDAO);
+    UserDTO toUserDTO(UserDAO userDAO);
 
     @Mapping(source = "branchDTO", target = "branchDAO")
     @Mapping(source = "locationDTO", target = "locationDAO")
     @Mapping(source = "roleDTO", target = "roleDAO")
-    List<UserDAO> fromDTOListToDAOList(List<UserDTO> userDTOList);
+    List<UserDAO> toUserDAOList(List<UserDTO> userDTOList);
 
     @Mapping(source = "branchDAO", target = "branchDTO")
     @Mapping(source = "locationDAO", target = "locationDTO")
     @Mapping(source = "roleDAO", target = "roleDTO")
-    List<UserDTO> fromDAOListToDTOList(List<UserDAO> userDAOList);
+    List<UserDTO> toUserDTOList(List<UserDAO> userDAOList);
 }

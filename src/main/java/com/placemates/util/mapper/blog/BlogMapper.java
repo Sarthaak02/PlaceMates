@@ -14,14 +14,14 @@ public interface BlogMapper {
     BlogMapper INSTANCE = Mappers.getMapper(BlogMapper.class);
 
     @Mapping(source = "createdByDTO", target = "createdByDAO")
-    BlogDAO fromDTOToDAO(BlogDTO blogDTO);
+    BlogDAO toBlogDAO(BlogDTO blogDTO);
 
     @Mapping(source = "createdByDAO", target = "createdByDTO")
-    BlogDTO fromDAOToDTO(BlogDAO blogDAO);
+    BlogDTO toBlogDTO(BlogDAO blogDAO);
 
     @Mapping(source = "createdByDTO", target = "createdByDAO")
-    List<BlogDAO> fromDTOListToDAOList(List<BlogDTO> blogDTOList);
+    List<BlogDAO> toBlogDAOList(List<BlogDTO> blogDTOList);
 
     @Mapping(source = "createdByDAO", target = "createdByDTO")
-    List<BlogDTO> fromDAOListToDTOList(List<BlogDAO> blogDAOList);
+    List<BlogDTO> toBlogDTOList(List<BlogDAO> blogDAOList);
 }

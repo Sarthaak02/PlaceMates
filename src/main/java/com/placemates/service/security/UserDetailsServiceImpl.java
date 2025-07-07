@@ -22,13 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        UserDAO userDAO;
-        if(username.contains("@")){
-            userDAO = userRepository.findByMail(username);
-        }
-        else{
-            userDAO = userRepository.findByMobileNumber(username);
-        }
+        UserDAO userDAO = userRepository.findByUsername(username);
 
         if(userDAO == null){
             log.error("User not found with username: {}",username);

@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/signup", "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/company/**", "/placed-alum/**").hasRole("STUDENT")
                         .requestMatchers("/branch/**", "/location/**","/company/**","/placed-alum/**").hasRole("ADMIN")
-                        .requestMatchers("/blog/**","/feedback/**","/user/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/blog/**","/feedback/**","/user/**").hasAnyRole("STUDENT","ADMIN")
                         .anyRequest().authenticated()
                 )
 //                .httpBasic(Customizer.withDefaults())

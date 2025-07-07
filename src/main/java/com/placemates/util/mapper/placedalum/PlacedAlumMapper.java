@@ -16,17 +16,17 @@ public interface PlacedAlumMapper {
 
     @Mapping(source = "companyDTO", target = "companyDAO")
     @Mapping(source = "branchDTO", target = "branchDAO")
-    PlacedAlumDAO fromDTOToDAO(PlacedAlumDTO placedAlumDTO);
+    PlacedAlumDAO toPlacedAlumDAO(PlacedAlumDTO placedAlumDTO);
 
     @Mapping(source = "companyDAO",target = "companyDTO")
     @Mapping(source = "branchDAO", target= " branchDTO")
-    PlacedAlumDTO fromDAOToDTO(PlacedAlumDAO placedAlumDAO);
+    PlacedAlumDTO toPlacedAlumDTO(PlacedAlumDAO placedAlumDAO);
 
     @Mapping(source = "companyDTO", target = "companyDAO")
     @Mapping(source = "branchDTO", target = "branchDAO")
-    List<PlacedAlumDAO> fromDTOListToDAOList(List<PlacedAlumDTO> placedAlumDTOList);
+    List<PlacedAlumDAO> toPlacedAlumDAOList(List<PlacedAlumDTO> placedAlumDTOList);
 
     @Mapping(source = "companyDAO",target = "companyDTO")
     @Mapping(source = "branchDAO", target= " branchDTO")
-    List<PlacedAlumDTO> fromDAOListToDTOList(List<PlacedAlumDAO> placedAlumDAOList);
+    List<PlacedAlumDTO> toPlacedAlumDTOList(List<PlacedAlumDAO> placedAlumDAOList);
 }

@@ -34,14 +34,14 @@ public class BlogLikeServiceImpl implements BlogLikeService{
 
     @Override
     public BlogLikeDTO createLikeByUserAndBlog(Integer userId, Integer blogId) {
-        UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
+        UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.toUserDTO(
             userRepository.findById(userId).orElseThrow(() ->{
                 log.error("User not found with id: {}", userId);
                 return new ResourceNotFoundException("User not found with id: " + userId);
             })
         );
 
-        BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(
+        BlogDTO blogDTO = BlogMapper.INSTANCE.toBlogDTO(
             blogRepository.findById(blogId).orElseThrow(() -> {
                 log.error("Blog not found with id: {}", blogId);
                 return new ResourceNotFoundException("Blog not found with id:" + blogId);
@@ -52,13 +52,13 @@ public class BlogLikeServiceImpl implements BlogLikeService{
 
         LocalDateTime currentDateTime = LocalDateTime.now();
         blogLikeDAO.setLikedAt(currentDateTime);
-        blogLikeDAO.setBlogDAO(BlogMapper.INSTANCE.fromDTOToDAO(blogDTO));
-        blogLikeDAO.setLikedByDAO(UserInfoMapper.INSTANCE.fromDTOToDAO(userInfoDTO));
+        blogLikeDAO.setBlogDAO(BlogMapper.INSTANCE.toBlogDAO(blogDTO));
+        blogLikeDAO.setLikedByDAO(UserInfoMapper.INSTANCE.toUserDAO(userInfoDTO));
 
         blogLikeRepository.save(blogLikeDAO);
         log.info("Blog with id: {}, liked by user with id:{}", blogDTO.getBlogId(), userInfoDTO.getUserId());
 
-        return BlogLikeMapper.INSTANCE.fromDAOToDTO(blogLikeDAO);
+        return BlogLikeMapper.INSTANCE.toBlogLikeDTO(blogLikeDAO);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class BlogLikeServiceImpl implements BlogLikeService{
         List<BlogLikeDAO> blogLikeDAOList = blogLikeRepository.findAllByBlogDAO_BlogId(blogId);
         if(blogLikeDAOList.isEmpty()) log.warn("Likes for blog with id: {} not found !!!", blogId );
         else log.info("{} likes found", blogLikeDAOList.size());
-        return BlogLikeMapper.INSTANCE.fromDAOListToDTOList(blogLikeDAOList);
+        return BlogLikeMapper.INSTANCE.toBlogLikeDTOList(blogLikeDAOList);
     }
 
     @Transactional

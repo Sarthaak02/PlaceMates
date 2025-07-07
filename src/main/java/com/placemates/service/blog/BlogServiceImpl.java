@@ -34,12 +34,12 @@ public class BlogServiceImpl implements BlogService {
         blogDTO.setCreatedAt(currentDateTime);
         blogDTO.setUpdatedAt(currentDateTime);
 
-        BlogDAO blogDAO = BlogMapper.INSTANCE.fromDTOToDAO(blogDTO);
+        BlogDAO blogDAO = BlogMapper.INSTANCE.toBlogDAO(blogDTO);
         blogDAO.setBlogId(null);
         blogDAO = blogRepository.save(blogDAO);
         log.info("Blog successfully created with id: {}", blogDAO.getBlogId());
 
-        return BlogMapper.INSTANCE.fromDAOToDTO(blogDAO);
+        return BlogMapper.INSTANCE.toBlogDTO(blogDAO);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class BlogServiceImpl implements BlogService {
             return new ResourceNotFoundException("Blog not found with id:" + id);
         });
 
-        BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(blogDAO);
+        BlogDTO blogDTO = BlogMapper.INSTANCE.toBlogDTO(blogDAO);
 
         List<BlogLikeDTO> blogLikeDTOList = blogLikeService.getAllLikesByBlog(id);
         blogDTO.setBlogLikeDTOs(blogLikeDTOList);
@@ -69,7 +69,7 @@ public class BlogServiceImpl implements BlogService {
         if(blogDAOList.isEmpty()) log.warn("Blog not found !!!");
         else log.info("{} blogs found", blogDAOList.size());
 
-        return BlogMapper.INSTANCE.fromDAOListToDTOList(blogDAOList);
+        return BlogMapper.INSTANCE.toBlogDTOList(blogDAOList);
     }
 
     @Override
@@ -84,12 +84,12 @@ public class BlogServiceImpl implements BlogService {
         LocalDateTime currentDateTime = LocalDateTime.now();
         blogDTO.setUpdatedAt(currentDateTime);
 
-        blogDAO = BlogMapper.INSTANCE.fromDTOToDAO(blogDTO);
+        blogDAO = BlogMapper.INSTANCE.toBlogDAO(blogDTO);
         
         blogDAO.setBlogId(id);
         blogDAO = blogRepository.save(blogDAO);
         log.info("Blog successfully updated with id: {}", blogDAO.getBlogId());
-        return BlogMapper.INSTANCE.fromDAOToDTO(blogDAO);
+        return BlogMapper.INSTANCE.toBlogDTO(blogDAO);
     }
 
     @Override

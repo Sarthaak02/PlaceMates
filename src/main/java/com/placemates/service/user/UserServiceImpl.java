@@ -10,6 +10,7 @@ import com.placemates.exception.ResourceNotFoundException;
 import com.placemates.repository.user.UserRepository;
 import com.placemates.util.mapper.user.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService{
-    
+
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -42,11 +43,11 @@ public class UserServiceImpl implements UserService{
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setRoleId(AppConstants.DEFAULT_ROLE);
         userDTO.setRoleDTO(roleDTO);
-        UserDAO userDAO = UserMapper.INSTANCE.fromDTOToDAO(userDTO);
+        UserDAO userDAO = UserMapper.INSTANCE.toUserDAO(userDTO);
         userDAO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDAO = userRepository.save(userDAO);
         log.info("User successfully created with id: {}", userDAO.getUserId());
-        return UserMapper.INSTANCE.fromDAOToDTO(userDAO);
+        return UserMapper.INSTANCE.toUserDTO(userDAO);
     }
 
     @Override
@@ -56,7 +57,16 @@ public class UserServiceImpl implements UserService{
             return new ResourceNotFoundException("User not found with id: " + id);
         });
         log.info("User found with id: {}", userDAO.getUserId());
-        return UserMapper.INSTANCE.fromDAOToDTO(userDAO);
+        return UserMapper.INSTANCE.toUserDTO(userDAO);
+    }
+
+    @Override
+    public String getCurrentUserUsername() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(!username.contains("@")) username = userRepository.findEmailByMobileNumber(username);
+
+        return username;
     }
 
     @Override
@@ -64,7 +74,7 @@ public class UserServiceImpl implements UserService{
         List<UserDAO> userDAOList = userRepository.findAll();
         if(userDAOList.isEmpty()) log.warn("Users not found !!!");
         else log.info("{} users found", userDAOList.size());
-        return UserMapper.INSTANCE.fromDAOListToDTOList(userDAOList);
+        return UserMapper.INSTANCE.toUserDTOList(userDAOList);
     }
 
     @Override
@@ -88,13 +98,13 @@ public class UserServiceImpl implements UserService{
 //        May be changed for the admin dashboard he has access to change the role of the user then for that implement the patch method
         RoleDAO roleDAO = userDAO.getRoleDAO();
 
-        userDAO = UserMapper.INSTANCE.fromDTOToDAO(userDTO);
+        userDAO = UserMapper.INSTANCE.toUserDAO(userDTO);
         userDAO.setUserId(id);
         userDAO.setRoleDAO(roleDAO);
         userDAO.setPassword(passwordEncoder.encode(userDAO.getPassword()));
         userDAO = userRepository.save(userDAO);
         log.info("User successfully updated with id: {}", userDAO.getUserId());
-        return UserMapper.INSTANCE.fromDAOToDTO(userDAO);
+        return UserMapper.INSTANCE.toUserDTO(userDAO);
     }
 
     @Override

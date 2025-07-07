@@ -27,11 +27,11 @@ public class LocationServiceImpl implements LocationService {
             log.warn("Location already exists with city: {}", locationDTO.getCity());
             throw new ResourceAlreadyExistsException("Location already exists with city: " + locationDTO.getCity());
         }
-        LocationDAO locationDAO = LocationMapper.INSTANCE.fromDTOToDAO(locationDTO);
+        LocationDAO locationDAO = LocationMapper.INSTANCE.toLocationDAO(locationDTO);
         locationDAO.setLocationId(null);
         locationDAO = locationRepository.save(locationDAO);
         log.info("Location successfully created with id: {}", locationDAO.getLocationId());
-        return LocationMapper.INSTANCE.fromDAOToDTO(locationDAO);
+        return LocationMapper.INSTANCE.toLocationDTO(locationDAO);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LocationServiceImpl implements LocationService {
             log.error("Location not found with id: {}", id);
             return new ResourceNotFoundException("Location not found with id: " + id);
         });
-        LocationDTO locationDTO = LocationMapper.INSTANCE.fromDAOToDTO(locationDAO);
+        LocationDTO locationDTO = LocationMapper.INSTANCE.toLocationDTO(locationDAO);
         log.info("Location found with id: {}",id);
         return locationDTO;
     }
@@ -50,7 +50,7 @@ public class LocationServiceImpl implements LocationService {
         List<LocationDAO> locationDAOList = locationRepository.findAll();
         if (locationDAOList.isEmpty()) log.warn("Locations not found !!!");
         else log.info("{} locations found", locationDAOList.size());
-        return LocationMapper.INSTANCE.fromDAOListToDTOList(locationDAOList);
+        return LocationMapper.INSTANCE.toLocationDTOList(locationDAOList);
     }
 
     @Override
@@ -63,11 +63,11 @@ public class LocationServiceImpl implements LocationService {
             log.warn("Location already exists with city: {}", locationDTO.getCity());
             throw new ResourceAlreadyExistsException("Location already exists with city: " + locationDTO.getCity());
         }
-        LocationDAO locationDAO = LocationMapper.INSTANCE.fromDTOToDAO(locationDTO);
+        LocationDAO locationDAO = LocationMapper.INSTANCE.toLocationDAO(locationDTO);
         locationDAO.setLocationId(id);
         locationRepository.save(locationDAO);
         log.info("Location successfully updated with id: {}", locationDAO.getLocationId());
-        return LocationMapper.INSTANCE.fromDAOToDTO(locationDAO);
+        return LocationMapper.INSTANCE.toLocationDTO(locationDAO);
     }
 
     @Override

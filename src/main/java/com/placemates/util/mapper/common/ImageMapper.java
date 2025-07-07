@@ -11,8 +11,8 @@ import java.util.List;
 public interface ImageMapper {
     ImageMapper imageMapper = Mappers.getMapper(ImageMapper.class);
 
-    ImageDAO fromDTOToDAO(ImageDTO imageDTO);
-    ImageDTO fromDAOToDTO(ImageDAO imageDAO);
-    List<ImageDAO> fromDTOListToDAOList(List<ImageDTO> imageDTOList);
-    List<ImageDTO> fromDAOListToDTOList(List<ImageDAO> imageDAOList);
+    ImageDAO toImageDAO(ImageDTO imageDTO);
+    ImageDTO toImageDTO(ImageDAO imageDAO);
+    List<ImageDAO> toImageDAOList(List<ImageDTO> imageDTOList);
+    List<ImageDTO> toImageDTOList(List<ImageDAO> imageDAOList);
 }

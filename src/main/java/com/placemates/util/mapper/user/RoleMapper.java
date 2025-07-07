@@ -11,8 +11,8 @@ import java.util.List;
 public interface RoleMapper {
     RoleMapper roleMapper = Mappers.getMapper(RoleMapper.class);
 
-    RoleDAO fromDTOToDAO(RoleDTO roleDTO);
-    RoleDTO fromDAOTODTO(RoleDAO roleDAO);
-    List<RoleDAO> fromDTOListToDAOList(List<RoleDTO> roleDTOList);
-    List<RoleDTO> fromDAOListToDTOList(List<RoleDAO> roleDAOList);
+    RoleDAO toRoleDAO(RoleDTO roleDTO);
+    RoleDTO tORoleDTO(RoleDAO roleDAO);
+    List<RoleDAO> toRoleDAOList(List<RoleDTO> roleDTOList);
+    List<RoleDTO> toRoleDTOList(List<RoleDAO> roleDAOList);
 }

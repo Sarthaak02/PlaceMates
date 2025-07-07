@@ -14,14 +14,14 @@ public interface FeedbackMapper {
     FeedbackMapper INSTANCE = Mappers.getMapper(FeedbackMapper.class);
 
     @Mapping(source = "userInfoDTO", target = "userDAO")
-    FeedbackDAO fromDTOToDAO(FeedbackDTO feedbackDTO);
+    FeedbackDAO toFeedbackDAO(FeedbackDTO feedbackDTO);
 
     @Mapping(source = "userDAO", target = "userInfoDTO")
-    FeedbackDTO fromDAOToDTO(FeedbackDAO feedbackDAO);
+    FeedbackDTO toFeedbackDTO(FeedbackDAO feedbackDAO);
 
     @Mapping(source = "userInfoDTO", target = "userDAO")
-    List<FeedbackDAO> fromDTOListToDAOList(List<FeedbackDTO> feedbackDTOList);
+    List<FeedbackDAO> toFeedbackDAOList(List<FeedbackDTO> feedbackDTOList);
 
     @Mapping(source = "userDAO", target = "userInfoDTO")
-    List<FeedbackDTO> fromDAOListToDTOList(List<FeedbackDAO> feedbackDAOList);
+    List<FeedbackDTO> toFeedbackDTOList(List<FeedbackDAO> feedbackDAOList);
 }

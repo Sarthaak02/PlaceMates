@@ -2,8 +2,6 @@ package com.placemates.service.company;
 
 import com.placemates.dao.company.CompanyDAO;
 import com.placemates.dao.placedalum.PlacedAlumDAO;
-import com.placemates.dto.common.BranchDTO;
-import com.placemates.dto.common.LocationDTO;
 import com.placemates.dto.company.CompanyDTO;
 import com.placemates.exception.ResourceAlreadyExistsException;
 import com.placemates.exception.ResourceNotFoundException;
@@ -15,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,12 +34,12 @@ public class CompanyServiceImpl implements CompanyService{
             log.warn("Company already exists with name: {}", companyDTO.getName());
             throw new ResourceAlreadyExistsException("Company already exists with name: " + companyDTO.getName());
         }
-        CompanyDAO companyDAO = CompanyMapper.INSTANCE.fromDTOToDAO(companyDTO);
+        CompanyDAO companyDAO = CompanyMapper.INSTANCE.toCompanyDAO(companyDTO);
         companyDAO.setCompanyId(null);
         companyDAO = companyRepository.save(companyDAO);
         log.info("Company successfully created with id: {}", companyDAO.getCompanyId());
 
-        companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);
+        companyDTO = CompanyMapper.INSTANCE.toCompanyDTO(companyDAO);
 
         return companyDTO;
     }
@@ -55,10 +52,10 @@ public class CompanyServiceImpl implements CompanyService{
         });
         log.info("Company found with id: {}",id);
 
-        CompanyDTO companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);
+        CompanyDTO companyDTO = CompanyMapper.INSTANCE.toCompanyDTO(companyDAO);
 
         List<PlacedAlumDAO> placedAlumDAOList = placedAlumRepository.findAllByCompanyDAO_CompanyId(id);
-        companyDTO.setPlacedAlumDTOs(PlacedAlumMapper.INSTANCE.fromDAOListToDTOList(placedAlumDAOList));
+        companyDTO.setPlacedAlumDTOs(PlacedAlumMapper.INSTANCE.toPlacedAlumDTOList(placedAlumDAOList));
 
         return companyDTO;
     }
@@ -67,7 +64,7 @@ public class CompanyServiceImpl implements CompanyService{
     public List<CompanyDTO> getAllCompanies() {
         List<CompanyDAO> companyDAOList = companyRepository.findAll();
 
-        List<CompanyDTO> companyDTOList = CompanyMapper.INSTANCE.fromDAOListToDTOList(companyDAOList);
+        List<CompanyDTO> companyDTOList = CompanyMapper.INSTANCE.toCompanyDTOList(companyDAOList);
         if(companyDAOList.isEmpty()) log.warn("Companies not found !!!");
         else{
             log.info("{} companies found", companyDAOList.size());
@@ -80,18 +77,18 @@ public class CompanyServiceImpl implements CompanyService{
     public CompanyDTO updateCompany(Integer id, CompanyDTO companyDTO) {
         if(!companyRepository.existsById(id)){
             log.error("Company not found with id: {}", id);
-            throw new ResourceNotFoundException("Company not found with id:" + id);
+            throw new ResourceNotFoundException("Company not found with id: " + id);
         }
         if(companyRepository.findByName(companyDTO.getName()) != null && companyRepository.findByName(companyDTO.getName()).getCompanyId() != id){
             log.warn("Company already exists with name: {}", companyDTO.getName());
             throw new ResourceAlreadyExistsException("Company already exists with name: " + companyDTO.getName());
         }
-        CompanyDAO companyDAO = CompanyMapper.INSTANCE.fromDTOToDAO(companyDTO);
+        CompanyDAO companyDAO = CompanyMapper.INSTANCE.toCompanyDAO(companyDTO);
         companyDAO.setCompanyId(id);
         companyRepository.save(companyDAO);
         log.info("Company successfully updated with id: {}", id);
 
-        companyDTO = CompanyMapper.INSTANCE.fromDAOToDTO(companyDAO);
+        companyDTO = CompanyMapper.INSTANCE.toCompanyDTO(companyDAO);
 
         return companyDTO;
     }
@@ -100,7 +97,7 @@ public class CompanyServiceImpl implements CompanyService{
     public void deleteCompany(Integer id) {
         if(!companyRepository.existsById(id)){
             log.error("Company not found with id: {}", id);
-            throw new ResourceNotFoundException("Company not found with id:" + id);
+            throw new ResourceNotFoundException("Company not found with id: " + id);
         }
         companyRepository.deleteById(id);
         log.info("Company successfully deleted with id: {}", id);

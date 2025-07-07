@@ -11,8 +11,8 @@ import java.util.List;
 public interface LocationMapper {
     LocationMapper INSTANCE = Mappers.getMapper(LocationMapper.class);
 
-    LocationDAO fromDTOToDAO(LocationDTO locationDTO);
-    LocationDTO fromDAOToDTO(LocationDAO locationDAO);
-    List<LocationDAO> fromDTOListToDAOList(List<LocationDTO> locationDTOList);
-    List<LocationDTO> fromDAOListToDTOList(List<LocationDAO> locationDAOList);
+    LocationDAO toLocationDAO(LocationDTO locationDTO);
+    LocationDTO toLocationDTO(LocationDAO locationDAO);
+    List<LocationDAO> toLocationDAOList(List<LocationDTO> locationDTOList);
+    List<LocationDTO> toLocationDTOList(List<LocationDAO> locationDAOList);
 }

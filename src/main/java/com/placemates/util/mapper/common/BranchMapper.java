@@ -11,8 +11,8 @@ import java.util.List;
 public interface BranchMapper {
     BranchMapper INSTANCE = Mappers.getMapper(BranchMapper.class);
 
-    BranchDAO fromDTOToDAO(BranchDTO branchDTO);
-    BranchDTO fromDAOToDTO(BranchDAO branchDAO);
-    List<BranchDAO> fromDTOListToDAOList(List<BranchDTO> branchDTOList);
-    List<BranchDTO> fromDAOListToDTOList(List<BranchDAO> branchDAOList);
+    BranchDAO toBranchDAO(BranchDTO branchDTO);
+    BranchDTO toBranchDTO(BranchDAO branchDAO);
+    List<BranchDAO> toBranchDAOList(List<BranchDTO> branchDTOList);
+    List<BranchDTO> toBranchDTOList(List<BranchDAO> branchDAOList);
 }

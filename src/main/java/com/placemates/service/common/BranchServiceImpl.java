@@ -27,11 +27,11 @@ public  class BranchServiceImpl implements BranchService {
             log.warn("Branch already exists with name: {}", branchDTO.getName());
             throw new ResourceAlreadyExistsException("Branch already exists with name: " + branchDTO.getName());
         }
-        BranchDAO branchDAO = BranchMapper.INSTANCE.fromDTOToDAO(branchDTO);
+        BranchDAO branchDAO = BranchMapper.INSTANCE.toBranchDAO(branchDTO);
         branchDAO.setBranchId(null);
         branchDAO = branchRepository.save(branchDAO);
         log.info("Branch successfully created with id: {}", branchDAO.getBranchId());
-        return BranchMapper.INSTANCE.fromDAOToDTO(branchDAO);
+        return BranchMapper.INSTANCE.toBranchDTO(branchDAO);
     }
 
     @Override
@@ -40,7 +40,7 @@ public  class BranchServiceImpl implements BranchService {
             log.error("Branch not found with id: {}", id);
             return new ResourceNotFoundException("Branch not found with id:" + id);
         });
-        BranchDTO branchDTO = BranchMapper.INSTANCE.fromDAOToDTO(branchDAO);
+        BranchDTO branchDTO = BranchMapper.INSTANCE.toBranchDTO(branchDAO);
         log.info("Branch found with id: {}",id);
         return branchDTO;
     }
@@ -50,7 +50,7 @@ public  class BranchServiceImpl implements BranchService {
         List<BranchDAO> branchDAOList = branchRepository.findAll();
         if(branchDAOList.isEmpty()) log.warn("Branches not found !!!");
         else log.info("{} branches found", branchDAOList.size());
-        return BranchMapper.INSTANCE.fromDAOListToDTOList(branchDAOList);
+        return BranchMapper.INSTANCE.toBranchDTOList(branchDAOList);
     }
 
     @Override
@@ -63,11 +63,11 @@ public  class BranchServiceImpl implements BranchService {
             log.warn("Branch already exists with name: {}", branchDTO.getName());
             throw new ResourceAlreadyExistsException("Branch already exists with name: " + branchDTO.getName());
         }
-        BranchDAO branchDAO = BranchMapper.INSTANCE.fromDTOToDAO(branchDTO);
+        BranchDAO branchDAO = BranchMapper.INSTANCE.toBranchDAO(branchDTO);
         branchDAO.setBranchId(id);
         branchRepository.save(branchDAO);
         log.info("Branch successfully updated with id: {}", branchDAO.getBranchId());
-        return BranchMapper.INSTANCE.fromDAOToDTO(branchDAO);
+        return BranchMapper.INSTANCE.toBranchDTO(branchDAO);
     }
 
     @Override

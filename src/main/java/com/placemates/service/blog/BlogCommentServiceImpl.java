@@ -34,14 +34,14 @@ public class BlogCommentServiceImpl implements BlogCommentService{
 
     @Override
     public BlogCommentDTO createCommentByUserAndBlog(Integer userId, Integer blogId, String content) {
-        UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.fromDAOToDTO(
+        UserInfoDTO userInfoDTO = UserInfoMapper.INSTANCE.toUserDTO(
             userRepository.findById(userId).orElseThrow(() ->{
                 log.error("User not found with id: {}", userId);
                 return new ResourceNotFoundException("User not found with id: " + userId);
             })
         );
 
-        BlogDTO blogDTO = BlogMapper.INSTANCE.fromDAOToDTO(
+        BlogDTO blogDTO = BlogMapper.INSTANCE.toBlogDTO(
             blogRepository.findById(blogId).orElseThrow(() -> {
                 log.error("Blog not found with id: {}", blogId);
                 return new ResourceNotFoundException("Blog not found with id:" + blogId);
@@ -55,10 +55,10 @@ public class BlogCommentServiceImpl implements BlogCommentService{
         blogCommentDTO.setCommentedByDTO(userInfoDTO);
         blogCommentDTO.setComment(content);
 
-        BlogCommentDAO blogCommentDAO = blogCommentRepository.save(BlogCommentMapper.INSTANCE.fromDTOToDAO(blogCommentDTO));
+        BlogCommentDAO blogCommentDAO = blogCommentRepository.save(BlogCommentMapper.INSTANCE.toBlogCommentDAO(blogCommentDTO));
         log.info("User with id: {} commented on the blog with id: {}", userInfoDTO.getUserId(), blogDTO.getBlogId());
 
-        return BlogCommentMapper.INSTANCE.fromDAOToDTO(blogCommentDAO);
+        return BlogCommentMapper.INSTANCE.toBlogCommentDTO(blogCommentDAO);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class BlogCommentServiceImpl implements BlogCommentService{
         List<BlogCommentDAO> blogCommentDAOList = blogCommentRepository.findAllByBlogDAO_BlogId(blogId);
         if(blogCommentDAOList.isEmpty()) log.warn("Comments for blog with id: {} not found !!!", blogId );
         else log.info("{} comments found", blogCommentDAOList.size());
-        return BlogCommentMapper.INSTANCE.fromDAOListToDTOList(blogCommentDAOList);
+        return BlogCommentMapper.INSTANCE.toBlogCommentDTOList(blogCommentDAOList);
     }
 
     @Transactional

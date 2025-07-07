@@ -16,17 +16,17 @@ public interface BlogLikeMapper {
 
     @Mapping(source = "likedByDTO", target = "likedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
-    BlogLikeDAO fromDTOToDAO(BlogLikeDTO blogLikeDTO);
+    BlogLikeDAO toBlogLikeDAO(BlogLikeDTO blogLikeDTO);
 
     @Mapping(source = "likedByDAO", target = "likedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
-    BlogLikeDTO fromDAOToDTO(BlogLikeDAO blogLikeDAO);
+    BlogLikeDTO toBlogLikeDTO(BlogLikeDAO blogLikeDAO);
 
     @Mapping(source = "likedByDTO", target = "likedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
-    List<BlogLikeDAO> fromDTOListToDAOList(List<BlogLikeDTO> blogLikeDTOList);
+    List<BlogLikeDAO> toBlogLikeDAOList(List<BlogLikeDTO> blogLikeDTOList);
 
     @Mapping(source = "likedByDAO", target = "likedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
-    List<BlogLikeDTO> fromDAOListToDTOList(List<BlogLikeDAO> blogLikeDAOList);
+    List<BlogLikeDTO> toBlogLikeDTOList(List<BlogLikeDAO> blogLikeDAOList);
 }

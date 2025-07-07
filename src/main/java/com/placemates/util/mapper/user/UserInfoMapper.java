@@ -14,14 +14,14 @@ public interface UserInfoMapper {
     UserInfoMapper INSTANCE = Mappers.getMapper(UserInfoMapper.class);
 
     @Mapping(source = "roleDTO", target = "roleDAO")
-    UserDAO fromDTOToDAO(UserInfoDTO userInfoDTO);
+    UserDAO toUserDAO(UserInfoDTO userInfoDTO);
 
     @Mapping(source = "roleDAO", target = "roleDTO")
-    UserInfoDTO fromDAOToDTO(UserDAO userDAO);
+    UserInfoDTO toUserDTO(UserDAO userDAO);
 
     @Mapping(source = "roleDTO", target = "roleDAO")
-    List<UserDAO> fromDTOListToDAOList(List<UserInfoDTO> userInfoDTOList);
+    List<UserDAO> toUserDAOList(List<UserInfoDTO> userInfoDTOList);
 
     @Mapping(source = "roleDAO", target = "roleDTO")
-    List<UserInfoDTO> fromDAOListToDTOList(List<UserDAO> userDAOList);
+    List<UserInfoDTO> toUserDTOList(List<UserDAO> userDAOList);
 }

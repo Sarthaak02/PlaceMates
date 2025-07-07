@@ -15,17 +15,17 @@ public interface BlogCommentMapper {
 
     @Mapping(source = "commentedByDTO", target = "commentedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
-    BlogCommentDAO fromDTOToDAO(BlogCommentDTO blogCommentDTO);
+    BlogCommentDAO toBlogCommentDAO(BlogCommentDTO blogCommentDTO);
 
     @Mapping(source = "commentedByDAO", target = "commentedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
-    BlogCommentDTO fromDAOToDTO(BlogCommentDAO blogCommentDAO);
+    BlogCommentDTO toBlogCommentDTO(BlogCommentDAO blogCommentDAO);
 
     @Mapping(source = "commentedByDTO", target = "commentedByDAO")
     @Mapping(source = "blogDTO", target = "blogDAO")
-    List<BlogCommentDAO> fromDTOListToDAOList(List<BlogCommentDTO> blogCommentDTOList);
+    List<BlogCommentDAO> toBlogCommentDAOList(List<BlogCommentDTO> blogCommentDTOList);
 
     @Mapping(source = "commentedByDAO", target = "commentedByDTO")
     @Mapping(source = "blogDAO", target = "blogDTO")
-    List<BlogCommentDTO> fromDAOListToDTOList(List<BlogCommentDAO> blogCommentDAOList);
+    List<BlogCommentDTO> toBlogCommentDTOList(List<BlogCommentDAO> blogCommentDAOList);
 }

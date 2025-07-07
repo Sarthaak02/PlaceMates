@@ -14,17 +14,17 @@ public interface CompanyMapper {
 
    @Mapping(source = "branchDTOs", target = "branchDAOs")
    @Mapping(source = "locationDTOs", target = "locationDAOs")
-   CompanyDAO fromDTOToDAO(CompanyDTO companyDTO);
+   CompanyDAO toCompanyDAO(CompanyDTO companyDTO);
 
    @Mapping(source = "branchDAOs", target = "branchDTOs")
    @Mapping(source = "locationDAOs", target = "locationDTOs")
-   CompanyDTO fromDAOToDTO(CompanyDAO companyDAO);
+   CompanyDTO toCompanyDTO(CompanyDAO companyDAO);
 
    @Mapping(source = "branchDTOs", target = "branchDAOs")
    @Mapping(source = "locationDTOs", target = "locationDAOs")
-   List<CompanyDAO> fromDTOListToDAOList(List<CompanyDTO> companyDTOList);
+   List<CompanyDAO> toCompanyDAOList(List<CompanyDTO> companyDTOList);
 
    @Mapping(source = "branchDAOs", target = "branchDTOs")
    @Mapping(source = "locationDAOs", target = "locationDTOs")
-   List<CompanyDTO> fromDAOListToDTOList(List<CompanyDAO> companyDAOList);
+   List<CompanyDTO> toCompanyDTOList(List<CompanyDAO> companyDAOList);
 }
