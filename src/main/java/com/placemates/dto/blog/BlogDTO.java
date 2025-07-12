@@ -36,7 +36,6 @@ public class BlogDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @NotNull
     private UserInfoDTO createdByDTO;
 
     private ImageDTO imageDTO;

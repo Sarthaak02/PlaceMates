@@ -5,7 +5,7 @@ import com.placemates.dto.blog.BlogCommentDTO;
 import java.util.List;
 
 public interface BlogCommentService {
-    BlogCommentDTO createCommentByUserAndBlog(Integer userId, Integer blogId, String content);
-    List<BlogCommentDTO> getAllCommentsByBlog(Integer id);
-    void deleteComment(Integer id);
+    BlogCommentDTO createComment(Integer blogId, String comment);
+    List<BlogCommentDTO> getAllCommentsByBlog(Integer blogId);
+    void deleteComment(Integer blogId);
 }

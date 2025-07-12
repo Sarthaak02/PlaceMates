@@ -2,6 +2,7 @@ package com.placemates.controller.company;
 
 import com.placemates.dto.company.CompanyDTO;
 import com.placemates.service.company.CompanyService;
+import com.placemates.service.placedalum.PlacedAlumService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,11 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final PlacedAlumService placedAlumService;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, PlacedAlumService placedAlumService) {
         this.companyService = companyService;
+        this.placedAlumService = placedAlumService;
     }
 
     @PostMapping("/create")
@@ -28,6 +31,7 @@ public class CompanyController {
     @GetMapping("/{id}")
     public ResponseEntity<CompanyDTO> getCompany(@PathVariable Integer id){
         CompanyDTO companyDTO = companyService.getCompany(id);
+        companyDTO.setPlacedAlumDTOs(placedAlumService.getAllPlacedAlumsByCompanyId(id));
         return ResponseEntity.status(HttpStatus.OK).body(companyDTO);
     }
 

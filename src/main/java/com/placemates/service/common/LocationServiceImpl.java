@@ -5,78 +5,134 @@ import com.placemates.dto.common.LocationDTO;
 import com.placemates.exception.ResourceAlreadyExistsException;
 import com.placemates.exception.ResourceNotFoundException;
 import com.placemates.repository.common.LocationRepository;
+import com.placemates.service.user.UserService;
+import com.placemates.util.logger.LoggerUtil;
 import com.placemates.util.mapper.common.LocationMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.placemates.constant.AppConstants.*;
 
 @Service
 @Slf4j
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
+    private final UserService userService;
 
-    public LocationServiceImpl(LocationRepository locationRepository) {
+    public LocationServiceImpl(LocationRepository locationRepository, UserService userService) {
         this.locationRepository = locationRepository;
+        this.userService = userService;
     }
 
     @Override
     public LocationDTO createLocation(LocationDTO locationDTO) {
+        String username = userService.getCurrentUserUsername();
+        double startTime = System.currentTimeMillis();
+        double endTime, duration;
+
         if (locationRepository.findByCity(locationDTO.getCity()) != null) {
-            log.warn("Location already exists with city: {}", locationDTO.getCity());
+            endTime = System.currentTimeMillis();
+            duration = (endTime - startTime) / 1000;
+            log.warn(LoggerUtil.buildLog(LOCATION, CREATE, "Location already exists with city: " + locationDTO.getCity(), username, duration, FAIL));
             throw new ResourceAlreadyExistsException("Location already exists with city: " + locationDTO.getCity());
         }
+
         LocationDAO locationDAO = LocationMapper.INSTANCE.toLocationDAO(locationDTO);
         locationDAO.setLocationId(null);
         locationDAO = locationRepository.save(locationDAO);
-        log.info("Location successfully created with id: {}", locationDAO.getLocationId());
+
+        endTime = System.currentTimeMillis();
+        duration = (endTime - startTime) / 1000;
+        log.info(LoggerUtil.buildLog(LOCATION, CREATE, "Id- " + locationDAO.getLocationId(), username, duration, SUCCESS));
+
         return LocationMapper.INSTANCE.toLocationDTO(locationDAO);
     }
 
     @Override
-    public LocationDTO getLocation(Integer id) {
-        LocationDAO locationDAO = locationRepository.findById(id).orElseThrow(() -> {
-            log.error("Location not found with id: {}", id);
-            return new ResourceNotFoundException("Location not found with id: " + id);
+    public LocationDTO getLocation(Integer locationId) {
+        String username = userService.getCurrentUserUsername();
+        double startTime = System.currentTimeMillis();
+
+        LocationDAO locationDAO = locationRepository.findById(locationId).orElseThrow(() -> {
+            log.error(LoggerUtil.buildLog(LOCATION, READ, "Location not found with id- " + locationId, username, (System.currentTimeMillis() - startTime) / 1000, FAIL));
+            return new ResourceNotFoundException("Location not found with id: " + locationId);
         });
-        LocationDTO locationDTO = LocationMapper.INSTANCE.toLocationDTO(locationDAO);
-        log.info("Location found with id: {}",id);
-        return locationDTO;
+
+        double endTime = System.currentTimeMillis();
+        double duration = (endTime - startTime) / 1000;
+        log.info(LoggerUtil.buildLog(LOCATION, READ, "Location fetched with id- " + locationId, username, duration, SUCCESS));
+
+        return LocationMapper.INSTANCE.toLocationDTO(locationDAO);
     }
 
     @Override
     public List<LocationDTO> getAllLocations() {
+        String username = userService.getCurrentUserUsername();
+        double startTime = System.currentTimeMillis();
+
         List<LocationDAO> locationDAOList = locationRepository.findAll();
-        if (locationDAOList.isEmpty()) log.warn("Locations not found !!!");
-        else log.info("{} locations found", locationDAOList.size());
+
+        if (locationDAOList.isEmpty()) {
+            log.error(LoggerUtil.buildLog(LOCATION, READ, "Locations not found", username, (System.currentTimeMillis() - startTime) / 1000, FAIL));
+            return new ArrayList<>();
+        } else {
+            log.info(LoggerUtil.buildLog(LOCATION, READ, locationDAOList.size() + " Locations fetched", username, (System.currentTimeMillis() - startTime) / 1000, SUCCESS));
+        }
+
         return LocationMapper.INSTANCE.toLocationDTOList(locationDAOList);
     }
 
     @Override
-    public LocationDTO updateLocation(Integer id, LocationDTO locationDTO) {
-        if (!locationRepository.existsById(id)) {
-            log.error("Location not found with id: {}", id);
-            throw new ResourceNotFoundException("Location not found with id: " + id);
+    public LocationDTO updateLocation(Integer locationId, LocationDTO locationDTO) {
+        String username = userService.getCurrentUserUsername();
+        double startTime = System.currentTimeMillis();
+        double endTime, duration;
+
+        if (!locationRepository.existsById(locationId)) {
+            endTime = System.currentTimeMillis();
+            duration = (endTime - startTime) / 1000;
+            log.error(LoggerUtil.buildLog(LOCATION, UPDATE, "Location not found with id- " + locationId, username, duration, FAIL));
+            throw new ResourceNotFoundException("Location not found with id: " + locationId);
         }
-        if (locationRepository.findByCity(locationDTO.getCity()) != null && locationRepository.findByCity(locationDTO.getCity()).getLocationId() != id) {
-            log.warn("Location already exists with city: {}", locationDTO.getCity());
+
+        LocationDAO existingByCity = locationRepository.findByCity(locationDTO.getCity());
+        if (existingByCity != null && existingByCity.getLocationId() != locationId) {
+            endTime = System.currentTimeMillis();
+            duration = (endTime - startTime) / 1000;
+            log.warn(LoggerUtil.buildLog(LOCATION, UPDATE, "Location already exists with city: " + locationDTO.getCity(), username, duration, FAIL));
             throw new ResourceAlreadyExistsException("Location already exists with city: " + locationDTO.getCity());
         }
+
         LocationDAO locationDAO = LocationMapper.INSTANCE.toLocationDAO(locationDTO);
-        locationDAO.setLocationId(id);
-        locationRepository.save(locationDAO);
-        log.info("Location successfully updated with id: {}", locationDAO.getLocationId());
+        locationDAO.setLocationId(locationId);
+        locationDAO = locationRepository.save(locationDAO);
+
+        endTime = System.currentTimeMillis();
+        duration = (endTime - startTime) / 1000;
+        log.info(LoggerUtil.buildLog(LOCATION, UPDATE, "Id- " + locationDAO.getLocationId(), username, duration, SUCCESS));
+
         return LocationMapper.INSTANCE.toLocationDTO(locationDAO);
     }
 
     @Override
-    public void deleteLocation(Integer id) {
-        if (!locationRepository.existsById(id)) {
-            log.error("Location not found with id: {}", id);
-            throw new ResourceNotFoundException("Location not found with id: " + id);
+    public void deleteLocation(Integer locationId) {
+        String username = userService.getCurrentUserUsername();
+        double startTime = System.currentTimeMillis();
+        double endTime, duration;
+
+        if (!locationRepository.existsById(locationId)) {
+            log.error(LoggerUtil.buildLog(LOCATION, DELETE, "Location not found with id- " + locationId, username, (System.currentTimeMillis() - startTime) / 1000, FAIL));
+            throw new ResourceNotFoundException("Location not found with id: " + locationId);
         }
-        locationRepository.deleteById(id);
-        log.info("Location successfully deleted  with id: {}", id);
+
+        locationRepository.deleteById(locationId);
+
+        endTime = System.currentTimeMillis();
+        duration = (endTime - startTime) / 1000;
+        log.info(LoggerUtil.buildLog(LOCATION, DELETE, "Id- " + locationId, username, duration, SUCCESS));
     }
 }

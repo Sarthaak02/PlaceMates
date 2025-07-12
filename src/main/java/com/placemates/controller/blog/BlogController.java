@@ -59,20 +59,20 @@ public class BlogController {
 
     @PostMapping("like/user/{userId}/blog/{blogId}")
     public ResponseEntity<BlogLikeDTO> likeBlog(@PathVariable Integer userId, @PathVariable Integer blogId){
-        BlogLikeDTO newBlogLikeDTO = blogLikeService.createLikeByUserAndBlog(userId, blogId);
+        BlogLikeDTO newBlogLikeDTO = blogLikeService.createLike(blogId);
         return ResponseEntity.status(HttpStatus.CREATED).body(newBlogLikeDTO);
     }
 
     @DeleteMapping("like/user/{userId}/blog/{blogId}")
     public ResponseEntity<Void> unlikeBlog(@PathVariable Integer userId, @PathVariable Integer blogId){
-        blogLikeService.deleteLikeByUserAndBlog(userId,blogId);
+        blogLikeService.deleteLike(blogId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("comment/user/{userId}/blog/{blogId}")
     public ResponseEntity<BlogCommentDTO> addCommentOnBlog(@PathVariable Integer userId, @PathVariable Integer blogId, @Valid @RequestBody String content){
 //        Hndle that commetn cannot be empty chekck for is it empty or not and also ids can be added in the model so pass model class in body
-        BlogCommentDTO newBlogCommentDTO = blogCommentService.createCommentByUserAndBlog(userId, blogId, content);
+        BlogCommentDTO newBlogCommentDTO = blogCommentService.createComment(blogId, content);
         return ResponseEntity.status(HttpStatus.CREATED).body(newBlogCommentDTO);
     }
 

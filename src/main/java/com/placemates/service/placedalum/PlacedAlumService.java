@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface PlacedAlumService {
     PlacedAlumDTO createPlacedAlum(PlacedAlumDTO placedAlumDTO);
-    PlacedAlumDTO getPlacedAlum(Integer id);
+    PlacedAlumDTO getPlacedAlum(Integer placedAlumId);
     List<PlacedAlumDTO> getAllPlacedAlums();
-    PlacedAlumDTO updatePlacedAlum(Integer id, PlacedAlumDTO placedAlumDTO);
-    void deletePlacedAlum(Integer id);
+    List<PlacedAlumDTO> getAllPlacedAlumsByCompanyId(Integer companyId);
+    PlacedAlumDTO updatePlacedAlum(Integer placedAlumId, PlacedAlumDTO placedAlumDTO);
+    void deletePlacedAlum(Integer placedAlumId);
 }

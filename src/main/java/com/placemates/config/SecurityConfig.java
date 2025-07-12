@@ -35,11 +35,11 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((request) -> request
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/signup", "/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/company/**", "/placed-alum/**").hasRole("STUDENT")
-                        .requestMatchers("/branch/**", "/location/**","/company/**","/placed-alum/**").hasRole("ADMIN")
-                        .requestMatchers("/blog/**","/feedback/**","/user/**").hasAnyRole("STUDENT","ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/company/**", "/placed-alum/**").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/branch/**", "/location/**", "/company/**", "/placed-alum/**").hasRole("ADMIN")
+                        .requestMatchers("/blog/**", "/feedback/**", "/user/**").hasAnyRole("STUDENT", "ADMIN")
                         .anyRequest().authenticated()
                 )
 //                .httpBasic(Customizer.withDefaults())

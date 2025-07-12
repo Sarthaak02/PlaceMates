@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface LocationService {
     LocationDTO createLocation(LocationDTO locationDTO);
-    LocationDTO getLocation(Integer id);
+    LocationDTO getLocation(Integer locationId);
     List<LocationDTO> getAllLocations();
-    LocationDTO updateLocation(Integer id, LocationDTO locationDTO);
-    void deleteLocation(Integer id);
+    LocationDTO updateLocation(Integer locationId, LocationDTO locationDTO);
+    void deleteLocation(Integer locationId);
 }
